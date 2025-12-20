@@ -41,4 +41,4 @@ Route::prefix('api/counter')->group(function () {
 });
 
 require __DIR__.'/settings.php';
-require __DIR__.'/api.php';
+// API routes được load tự động trong bootstrap/app.php, không cần require ở đây

@@ -22,6 +22,13 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+
+        // Đảm bảo API routes không cần CSRF token
+        // Trong Laravel 11, các route trong api.php đã tự động exclude CSRF,
+        // nhưng có thể cấu hình thêm để chắc chắn
+        $middleware->validateCsrfTokens(except: [
+            'api/*', // Exclude tất cả routes bắt đầu với /api/
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

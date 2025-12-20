@@ -17,17 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('api')->group(function () {
-    // API lấy thông tin học sinh theo card_code
-    Route::get('students/{card_code}', [StudentApiController::class, 'getByCardCode'])
-        ->name('api.students.get-by-card-code');
+// Lưu ý: Laravel tự động thêm prefix '/api' cho tất cả routes trong file api.php
+// Nên không cần thêm Route::prefix('api') ở đây
 
-    // API kiểm tra học sinh (nhận card_code + image, trả về thông tin học sinh)
-    Route::post('check', [CheckApiController::class, 'check'])
-        ->name('api.check');
+// API lấy thông tin học sinh theo card_code
+Route::get('students/{card_code}', [StudentApiController::class, 'getByCardCode'])
+    ->name('api.students.get-by-card-code');
 
-    // API ghi nhận vi phạm
-    Route::post('violations', [ViolationApiController::class, 'store'])
-        ->name('api.violations.store');
-});
+// API kiểm tra học sinh (nhận card_code + image, trả về thông tin học sinh)
+Route::post('check', [CheckApiController::class, 'check'])
+    ->name('api.check');
+
+// API ghi nhận vi phạm
+Route::post('violations', [ViolationApiController::class, 'store'])
+    ->name('api.violations.store');
 
