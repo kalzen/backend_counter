@@ -50,20 +50,28 @@ class CheckApiController extends Controller
 
         $card_code = $validated['card_code'];
 
-        // Tìm thẻ học sinh theo card_code
-        $card = StudentCard::where('card_code', $card_code)
-            ->where('is_active', true)
-            ->with('student')
-            ->first();
+        // Python gửi lên mã thẻ nhưng đó là mã HS (student_code) trên server
+        // Tìm học sinh trực tiếp theo student_code trước
+        $student = Student::where('student_code', $card_code)->first();
 
-        if (!$card || !$card->student) {
-            return response()->json([
-                'status' => 'error',
-                'error' => 'Không tìm thấy học sinh với mã thẻ: ' . $card_code,
-            ], 404);
+        // Nếu không tìm thấy, thử tìm qua StudentCard (để tương thích)
+        if (!$student) {
+            $card = StudentCard::where('card_code', $card_code)
+                ->where('is_active', true)
+                ->with('student')
+                ->first();
+
+            if ($card && $card->student) {
+                $student = $card->student;
+            }
         }
 
-        $student = $card->student;
+        if (!$student) {
+            return response()->json([
+                'status' => 'error',
+                'error' => 'Không tìm thấy học sinh với mã: ' . $card_code,
+            ], 404);
+        }
 
         // Tính tuổi chính xác (theo năm, tháng, ngày)
         $age = null;
