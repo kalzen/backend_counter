@@ -161,7 +161,9 @@ export default function Dashboard({ stats, recentViolations = [], exportDefaults
                         <CardHeader>
                             <CardDescription>Thời gian xử lý trung bình</CardDescription>
                             <CardTitle className="text-3xl">
-                                {stats?.average_processing_time ? `${stats.average_processing_time.toFixed(1)}s` : '—'}
+                                {stats?.average_processing_time != null && typeof stats.average_processing_time === 'number' && !Number.isNaN(stats.average_processing_time)
+                                    ? `${stats.average_processing_time.toFixed(1)}s`
+                                    : '—'}
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="text-sm text-muted-foreground">
