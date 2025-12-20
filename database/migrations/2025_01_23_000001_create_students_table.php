@@ -11,10 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('student_code')->unique();
+            $table->string('full_name');
+            $table->date('birth_date');
+            $table->string('class_name');
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->string('avatar_path')->nullable();
+            $table->string('contact_phone')->nullable();
+            $table->string('guardian_name')->nullable();
+            $table->string('guardian_phone')->nullable();
+            $table->text('notes')->nullable();
+            $table->enum('scenario_group', ['A', 'B', 'C'])->default('A')->index();
+            $table->boolean('is_underage')->default(false)->index();
+            $table->date('enrolled_at')->nullable();
             $table->timestamps();
         });
     }
@@ -24,10 +35,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Note: For migrate:fresh to work, we need to disable foreign key checks
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('students');
         Schema::enableForeignKeyConstraints();
     }
 };
-

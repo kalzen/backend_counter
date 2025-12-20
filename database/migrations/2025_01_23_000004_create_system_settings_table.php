@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('counter_logs', function (Blueprint $table) {
+        Schema::create('system_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
-            $table->string('counter_track_id')->nullable(); // ID từ people counter
-            $table->foreignId('person_id')->nullable()->constrained('persons')->onDelete('set null');
-            $table->enum('direction', ['in', 'out']);
-            $table->timestamp('timestamp');
+            $table->string('key')->unique();
+            $table->string('label')->nullable();
+            $table->text('description')->nullable();
+            $table->json('value')->nullable();
             $table->timestamps();
-            
-            $table->index('room_id');
-            $table->index('timestamp');
         });
     }
 
@@ -30,10 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop in correct order
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('counter_logs');
+        Schema::dropIfExists('system_settings');
         Schema::enableForeignKeyConstraints();
     }
 };
-

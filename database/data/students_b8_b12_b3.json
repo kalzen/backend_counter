@@ -1,0 +1,1472 @@
+[
+  {
+    "student_code": "3183268038",
+    "full_name": "Đặng Quang Anh",
+    "class_name": "11B8",
+    "birth_date": "2009-11-14",
+    "gender": "male",
+    "contact_phone": "0973004116",
+    "guardian_phone": "0912759860",
+    "notes": "Status: Đang học; Mother phone: 0973004116"
+  },
+  {
+    "student_code": "3183268206",
+    "full_name": "Hashimoto Hoàng Anh",
+    "class_name": "11B8",
+    "birth_date": "2009-12-12",
+    "gender": "male",
+    "contact_phone": "0827345689",
+    "guardian_phone": "0827345689",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268207",
+    "full_name": "Khoa Quang Anh",
+    "class_name": "11B8",
+    "birth_date": "2009-10-07",
+    "gender": "male",
+    "contact_phone": "0934028802",
+    "guardian_phone": "0986261392",
+    "notes": "Status: Đang học; Mother phone: 0934028802"
+  },
+  {
+    "student_code": "3183268208",
+    "full_name": "Nguyễn Đức Anh",
+    "class_name": "11B8",
+    "birth_date": "2009-09-03",
+    "gender": "male",
+    "contact_phone": "0788385420",
+    "guardian_phone": "0796349883",
+    "notes": "Status: Đang học; Mother phone: 0788385420"
+  },
+  {
+    "student_code": "3183268209",
+    "full_name": "Nguyễn Nhật Anh",
+    "class_name": "11B8",
+    "birth_date": "2009-07-24",
+    "gender": "male",
+    "contact_phone": "0326284456",
+    "guardian_phone": "0326284456",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268210",
+    "full_name": "Trần Hải Anh",
+    "class_name": "11B8",
+    "birth_date": "2009-12-14",
+    "gender": "other",
+    "contact_phone": "0946968659",
+    "guardian_phone": "0946968659",
+    "notes": "Status: Đang học; Mother phone: 0934273992"
+  },
+  {
+    "student_code": "3183268211",
+    "full_name": "Nguyễn Thị Nguyệt Ánh",
+    "class_name": "11B8",
+    "birth_date": "2009-03-08",
+    "gender": "other",
+    "contact_phone": "0943320198",
+    "guardian_phone": "0919246083",
+    "notes": "Status: Đang học; Mother phone: 0943320198"
+  },
+  {
+    "student_code": "3183268213",
+    "full_name": "Lý Diệu Châu",
+    "class_name": "11B8",
+    "birth_date": "2009-08-07",
+    "gender": "other",
+    "contact_phone": "0973168945",
+    "guardian_phone": "0912844280",
+    "notes": "Status: Đang học; Mother phone: 0973168945"
+  },
+  {
+    "student_code": "3183268214",
+    "full_name": "Hoàng Thành Công",
+    "class_name": "11B8",
+    "birth_date": "2009-01-07",
+    "gender": "male",
+    "contact_phone": "0389791608",
+    "guardian_phone": "0389791608",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268215",
+    "full_name": "Đoàn Việt Cường",
+    "class_name": "11B8",
+    "birth_date": "2009-03-13",
+    "gender": "male",
+    "contact_phone": "0829331981",
+    "guardian_phone": "0901506059",
+    "notes": "Status: Đang học; Mother phone: 0829331981"
+  },
+  {
+    "student_code": "3183268216",
+    "full_name": "Ngô Vũ Khánh Duy",
+    "class_name": "11B8",
+    "birth_date": "2009-03-14",
+    "gender": "male",
+    "contact_phone": "0906114188",
+    "guardian_phone": "0972882008",
+    "notes": "Status: Đang học; Mother phone: 0906114188"
+  },
+  {
+    "student_code": "3183268217",
+    "full_name": "Nguyễn Vũ Hương Giang",
+    "class_name": "11B8",
+    "birth_date": "2009-10-01",
+    "gender": "other",
+    "contact_phone": "0334999569",
+    "guardian_phone": "0368037390",
+    "notes": "Status: Đang học; Mother phone: 0334999569"
+  },
+  {
+    "student_code": "3183268218",
+    "full_name": "Hoàng Trung Hải",
+    "class_name": "11B8",
+    "birth_date": "2009-09-05",
+    "gender": "male",
+    "contact_phone": "0988661350",
+    "guardian_phone": "0904160389",
+    "notes": "Status: Đang học; Mother phone: 0988661350"
+  },
+  {
+    "student_code": "3183268219",
+    "full_name": "Trần Thị Minh Hải",
+    "class_name": "11B8",
+    "birth_date": "2009-11-01",
+    "gender": "other",
+    "contact_phone": "0904635502",
+    "guardian_phone": "0906024570",
+    "notes": "Status: Đang học; Mother phone: 0904635502"
+  },
+  {
+    "student_code": "3183268220",
+    "full_name": "Nguyễn An Hiếu",
+    "class_name": "11B8",
+    "birth_date": "2009-10-02",
+    "gender": "male",
+    "contact_phone": "0903419982",
+    "guardian_phone": "0393919999",
+    "notes": "Status: Đang học; Mother phone: 0903419982"
+  },
+  {
+    "student_code": "3183268221",
+    "full_name": "Nguyễn Huy Hải Hoàng",
+    "class_name": "11B8",
+    "birth_date": "2009-04-28",
+    "gender": "male",
+    "contact_phone": "0936668699",
+    "guardian_phone": "0912519133",
+    "notes": "Status: Đang học; Mother phone: 0936668699"
+  },
+  {
+    "student_code": "3183268223",
+    "full_name": "Tạ Gia Hưng",
+    "class_name": "11B8",
+    "birth_date": "2009-04-23",
+    "gender": "male",
+    "contact_phone": "0393693725",
+    "guardian_phone": "0904942254",
+    "notes": "Status: Đang học; Mother phone: 0393693725"
+  },
+  {
+    "student_code": "3183268224",
+    "full_name": "Vũ Thiên Hương",
+    "class_name": "11B8",
+    "birth_date": "2009-04-14",
+    "gender": "other",
+    "contact_phone": "0904974645",
+    "guardian_phone": "0945747678",
+    "notes": "Status: Đang học; Mother phone: 0904974645"
+  },
+  {
+    "student_code": "3183268225",
+    "full_name": "Nguyễn Ngọc Tuệ Lâm",
+    "class_name": "11B8",
+    "birth_date": "2009-12-26",
+    "gender": "other",
+    "contact_phone": "0366919275",
+    "guardian_phone": "0388682968",
+    "notes": "Status: Đang học; Mother phone: 0366919275"
+  },
+  {
+    "student_code": "3183268227",
+    "full_name": "Tạ Tùng Lâm",
+    "class_name": "11B8",
+    "birth_date": "2009-11-01",
+    "gender": "male",
+    "contact_phone": "0976932942",
+    "guardian_phone": "0904223986",
+    "notes": "Status: Đang học; Mother phone: 0976932942"
+  },
+  {
+    "student_code": "3183268228",
+    "full_name": "Lê Hà Ngọc Linh",
+    "class_name": "11B8",
+    "birth_date": "2009-05-03",
+    "gender": "other",
+    "contact_phone": "0964852701",
+    "guardian_phone": "0964852701",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268229",
+    "full_name": "Hoàng Anh Minh",
+    "class_name": "11B8",
+    "birth_date": "2009-05-28",
+    "gender": "male",
+    "contact_phone": "0984839985",
+    "guardian_phone": "0981263263",
+    "notes": "Status: Đang học; Mother phone: 0984839985"
+  },
+  {
+    "student_code": "3183268230",
+    "full_name": "Trần Gia Minh",
+    "class_name": "11B8",
+    "birth_date": "2009-06-01",
+    "gender": "male",
+    "contact_phone": "0931567259",
+    "guardian_phone": "0916582096",
+    "notes": "Status: Đang học; Mother phone: 0931567259"
+  },
+  {
+    "student_code": "3183268231",
+    "full_name": "Ngô Hoàng Mỹ",
+    "class_name": "11B8",
+    "birth_date": "2009-03-25",
+    "gender": "other",
+    "contact_phone": "0982792241",
+    "guardian_phone": "0983565878",
+    "notes": "Status: Đang học; Mother phone: 0982792241"
+  },
+  {
+    "student_code": "3183268232",
+    "full_name": "Phạm Hữu Nhật Nam",
+    "class_name": "11B8",
+    "birth_date": "2009-09-03",
+    "gender": "male",
+    "contact_phone": "0946098751",
+    "guardian_phone": "0836957466",
+    "notes": "Status: Đang học; Mother phone: 0946098751"
+  },
+  {
+    "student_code": "3183268233",
+    "full_name": "Trần Thu Ngân",
+    "class_name": "11B8",
+    "birth_date": "2009-11-29",
+    "gender": "other",
+    "contact_phone": "0934210739",
+    "guardian_phone": "0935262299",
+    "notes": "Status: Đang học; Mother phone: 0934210739"
+  },
+  {
+    "student_code": "3183268234",
+    "full_name": "Bùi Thảo Ngọc",
+    "class_name": "11B8",
+    "birth_date": "2009-09-04",
+    "gender": "other",
+    "contact_phone": "0339039391",
+    "guardian_phone": "0912439492",
+    "notes": "Status: Đang học; Mother phone: 0339039391"
+  },
+  {
+    "student_code": "3183268235",
+    "full_name": "Phan Thảo Nhi",
+    "class_name": "11B8",
+    "birth_date": "2009-05-30",
+    "gender": "other",
+    "contact_phone": "0388962281",
+    "guardian_phone": "0777241344",
+    "notes": "Status: Đang học; Mother phone: 0388962281"
+  },
+  {
+    "student_code": "3183268236",
+    "full_name": "Giang Hải Phong",
+    "class_name": "11B8",
+    "birth_date": "2009-11-02",
+    "gender": "male",
+    "contact_phone": "0904429366",
+    "guardian_phone": "0936894668",
+    "notes": "Status: Đang học; Mother phone: 0904429366"
+  },
+  {
+    "student_code": "3183268237",
+    "full_name": "Nguyễn An Phú",
+    "class_name": "11B8",
+    "birth_date": "2009-12-31",
+    "gender": "male",
+    "contact_phone": "0375285730",
+    "guardian_phone": "0395085465",
+    "notes": "Status: Đang học; Mother phone: 0375285730"
+  },
+  {
+    "student_code": "3183268238",
+    "full_name": "Bùi Mai Phương",
+    "class_name": "11B8",
+    "birth_date": "2009-10-18",
+    "gender": "other",
+    "contact_phone": "0782169898",
+    "guardian_phone": "0912611331",
+    "notes": "Status: Đang học; Mother phone: 0782169898"
+  },
+  {
+    "student_code": "3183268239",
+    "full_name": "Vũ Đức Thành",
+    "class_name": "11B8",
+    "birth_date": "2009-07-31",
+    "gender": "male",
+    "contact_phone": "0329298780",
+    "guardian_phone": "0365484068",
+    "notes": "Status: Đang học; Mother phone: 0329298780"
+  },
+  {
+    "student_code": "3183268159",
+    "full_name": "Nguyễn Thị Phương Thảo",
+    "class_name": "11B8",
+    "birth_date": "2009-12-17",
+    "gender": "other",
+    "contact_phone": "0824678656",
+    "guardian_phone": "0904386187",
+    "notes": "Status: Đang học; Mother phone: 0985638629"
+  },
+  {
+    "student_code": "3183268240",
+    "full_name": "Đỗ Diệp Minh Thùy",
+    "class_name": "11B8",
+    "birth_date": "2009-05-19",
+    "gender": "other",
+    "contact_phone": "0824678656",
+    "guardian_phone": "0983699939",
+    "notes": "Status: Đang học; Mother phone: 0824678656"
+  },
+  {
+    "student_code": "3183268241",
+    "full_name": "Nguyễn Vũ Anh Thư",
+    "class_name": "11B8",
+    "birth_date": "2009-02-28",
+    "gender": "other",
+    "contact_phone": "0904135196",
+    "guardian_phone": "0943255579",
+    "notes": "Status: Đang học; Mother phone: 0904135196"
+  },
+  {
+    "student_code": "3183268243",
+    "full_name": "Phạm Anh Thư",
+    "class_name": "11B8",
+    "birth_date": "2009-12-22",
+    "gender": "other",
+    "contact_phone": "0847875110",
+    "guardian_phone": "0916358088",
+    "notes": "Status: Đang học; Mother phone: 0847875110"
+  },
+  {
+    "student_code": "3351364545",
+    "full_name": "Nguyễn Vũ Phương Trang",
+    "class_name": "11B8",
+    "birth_date": "2009-09-30",
+    "gender": "other",
+    "contact_phone": "0934554388",
+    "guardian_phone": "0934554388",
+    "notes": "Status: Đang học; Mother phone: 0944433088"
+  },
+  {
+    "student_code": "3183268374",
+    "full_name": "Bùi Duy Anh",
+    "class_name": "11B12",
+    "birth_date": "2009-12-22",
+    "gender": "male",
+    "contact_phone": "0986190892",
+    "guardian_phone": "0913940340",
+    "notes": "Status: Đang học; Mother phone: 0986190892"
+  },
+  {
+    "student_code": "3183268375",
+    "full_name": "Đào Minh Anh",
+    "class_name": "11B12",
+    "birth_date": "2009-08-18",
+    "gender": "other",
+    "contact_phone": "0904974117",
+    "guardian_phone": "0902015583",
+    "notes": "Status: Đang học; Mother phone: 0904974117"
+  },
+  {
+    "student_code": "3183268377",
+    "full_name": "Nguyễn Phương Anh",
+    "class_name": "11B12",
+    "birth_date": "2009-01-03",
+    "gender": "other",
+    "contact_phone": "0946529297",
+    "guardian_phone": "0912975512",
+    "notes": "Status: Đang học; Mother phone: 0946526297"
+  },
+  {
+    "student_code": "3183268378",
+    "full_name": "Nguyễn Việt Anh",
+    "class_name": "11B12",
+    "birth_date": "2009-02-19",
+    "gender": "male",
+    "contact_phone": "0904056596",
+    "guardian_phone": "0902042398",
+    "notes": "Status: Đang học; Mother phone: 0904056596"
+  },
+  {
+    "student_code": "3183268379",
+    "full_name": "Trương Hà Anh",
+    "class_name": "11B12",
+    "birth_date": "2009-12-13",
+    "gender": "other",
+    "contact_phone": "0948346887",
+    "guardian_phone": "0948228369",
+    "notes": "Status: Đang học; Mother phone: 0948346887"
+  },
+  {
+    "student_code": "3183268380",
+    "full_name": "Vũ Duy Anh",
+    "class_name": "11B12",
+    "birth_date": "2009-08-30",
+    "gender": "male",
+    "contact_phone": "0989958399",
+    "guardian_phone": "0912056625",
+    "notes": "Status: Đang học; Mother phone: 0989958399"
+  },
+  {
+    "student_code": "3183268381",
+    "full_name": "Nguyễn Ngọc Ánh",
+    "class_name": "11B12",
+    "birth_date": "2009-10-05",
+    "gender": "other",
+    "contact_phone": "0919959958",
+    "guardian_phone": "0794309839",
+    "notes": "Status: Đang học; Mother phone: 0919959958"
+  },
+  {
+    "student_code": "3183268382",
+    "full_name": "Nguyễn Thanh Bình",
+    "class_name": "11B12",
+    "birth_date": "2009-03-29",
+    "gender": "male",
+    "contact_phone": "0936005142",
+    "guardian_phone": "0906666555",
+    "notes": "Status: Đang học; Mother phone: 0936005142"
+  },
+  {
+    "student_code": "3183268383",
+    "full_name": "Phạm Thảo Chi",
+    "class_name": "11B12",
+    "birth_date": "2009-08-04",
+    "gender": "other",
+    "contact_phone": "0398476826",
+    "guardian_phone": "0977670178",
+    "notes": "Status: Đang học; Mother phone: 0398476826"
+  },
+  {
+    "student_code": "3183268493",
+    "full_name": "Phan Tuệ Chi",
+    "class_name": "11B12",
+    "birth_date": "2009-05-22",
+    "gender": "other",
+    "contact_phone": "0975530235",
+    "guardian_phone": "0869105716",
+    "notes": "Status: Đang học; Mother phone: 0975530235"
+  },
+  {
+    "student_code": "3183268384",
+    "full_name": "Nguyễn Xuân Cường",
+    "class_name": "11B12",
+    "birth_date": "2009-03-26",
+    "gender": "male",
+    "contact_phone": "0936869661",
+    "guardian_phone": "0989557429",
+    "notes": "Status: Đang học; Mother phone: 0936869661"
+  },
+  {
+    "student_code": "3183268385",
+    "full_name": "Nguyễn Quang Dũng",
+    "class_name": "11B12",
+    "birth_date": "2009-04-28",
+    "gender": "male",
+    "contact_phone": "0914275288",
+    "guardian_phone": "0913375402",
+    "notes": "Status: Đang học; Mother phone: 0914275288"
+  },
+  {
+    "student_code": "3183268386",
+    "full_name": "Nguyễn Trí Đức",
+    "class_name": "11B12",
+    "birth_date": "2009-07-31",
+    "gender": "male",
+    "contact_phone": "0918310709",
+    "guardian_phone": "0932201106",
+    "notes": "Status: Đang học; Mother phone: 0918310709"
+  },
+  {
+    "student_code": "3183268387",
+    "full_name": "Lê Minh Hải",
+    "class_name": "11B12",
+    "birth_date": "2009-08-24",
+    "gender": "male",
+    "contact_phone": "0385700081",
+    "guardian_phone": "0969154684",
+    "notes": "Status: Đang học; Mother phone: 0385700081"
+  },
+  {
+    "student_code": "3183268388",
+    "full_name": "Phan Đăng Sơn Hải",
+    "class_name": "11B12",
+    "birth_date": "2009-12-11",
+    "gender": "male",
+    "contact_phone": "0975209934",
+    "guardian_phone": "0979359934",
+    "notes": "Status: Đang học; Mother phone: 0975209934"
+  },
+  {
+    "student_code": "3183268389",
+    "full_name": "Bùi Thế Hiệp",
+    "class_name": "11B12",
+    "birth_date": "2009-03-09",
+    "gender": "male",
+    "contact_phone": "0967059512",
+    "guardian_phone": "0912135455",
+    "notes": "Status: Đang học; Mother phone: 0967059512"
+  },
+  {
+    "student_code": "3183268390",
+    "full_name": "Trịnh Gia Hiệp",
+    "class_name": "11B12",
+    "birth_date": "2009-09-22",
+    "gender": "male",
+    "contact_phone": "0987223388",
+    "guardian_phone": "0904482828",
+    "notes": "Status: Đang học; Mother phone: 0987223388"
+  },
+  {
+    "student_code": "3183268391",
+    "full_name": "Đỗ Vũ Đức Hoàng",
+    "class_name": "11B12",
+    "birth_date": "2009-11-27",
+    "gender": "male",
+    "contact_phone": "0983903246",
+    "guardian_phone": "0989866139",
+    "notes": "Status: Đang học; Mother phone: 0983903246"
+  },
+  {
+    "student_code": "3183268392",
+    "full_name": "Bùi Mạnh Hùng",
+    "class_name": "11B12",
+    "birth_date": "2009-08-25",
+    "gender": "male",
+    "contact_phone": "0979463193",
+    "guardian_phone": "0982489148",
+    "notes": "Status: Đang học; Mother phone: 0979463193"
+  },
+  {
+    "student_code": "3183268393",
+    "full_name": "Bùi Mạnh Hùng",
+    "class_name": "11B12",
+    "birth_date": "2009-11-17",
+    "gender": "male",
+    "contact_phone": "0978238275",
+    "guardian_phone": "0987166891",
+    "notes": "Status: Đang học; Mother phone: 0978238275"
+  },
+  {
+    "student_code": "3183268394",
+    "full_name": "Nguyễn Đức Huy",
+    "class_name": "11B12",
+    "birth_date": "2009-06-01",
+    "gender": "male",
+    "contact_phone": "0969016706",
+    "guardian_phone": "0984325808",
+    "notes": "Status: Đang học; Mother phone: 0969016706"
+  },
+  {
+    "student_code": "3183268396",
+    "full_name": "Dương Xuân Khang",
+    "class_name": "11B12",
+    "birth_date": "2009-11-03",
+    "gender": "male",
+    "contact_phone": "0936910779",
+    "guardian_phone": "0904611079",
+    "notes": "Status: Đang học; Mother phone: 0936910779"
+  },
+  {
+    "student_code": "3183268397",
+    "full_name": "Nguyễn Vũ An Khang",
+    "class_name": "11B12",
+    "birth_date": "2009-12-21",
+    "gender": "male",
+    "contact_phone": "0976345666",
+    "guardian_phone": "0976345666",
+    "notes": "Status: Đang học; Mother phone: 0388883999"
+  },
+  {
+    "student_code": "3183268398",
+    "full_name": "Đỗ Quốc Khánh",
+    "class_name": "11B12",
+    "birth_date": "2009-11-24",
+    "gender": "male",
+    "contact_phone": "0936390974",
+    "guardian_phone": "0989029225",
+    "notes": "Status: Đang học; Mother phone: 0936390974"
+  },
+  {
+    "student_code": "3183268399",
+    "full_name": "Lê Quang Khánh",
+    "class_name": "11B12",
+    "birth_date": "2009-03-16",
+    "gender": "male",
+    "contact_phone": "0963556358",
+    "guardian_phone": "0963966679",
+    "notes": "Status: Đang học; Mother phone: 0936556358"
+  },
+  {
+    "student_code": "3183268400",
+    "full_name": "Trần Gia Khánh",
+    "class_name": "11B12",
+    "birth_date": "2009-01-13",
+    "gender": "male",
+    "contact_phone": "0917383558",
+    "guardian_phone": "0904846879",
+    "notes": "Status: Đang học; Mother phone: 0917383558"
+  },
+  {
+    "student_code": "3183268401",
+    "full_name": "Phạm Anh Khoa",
+    "class_name": "11B12",
+    "birth_date": "2009-04-29",
+    "gender": "male",
+    "contact_phone": "0977591690",
+    "guardian_phone": "0343596919",
+    "notes": "Status: Đang học; Mother phone: 0977591690"
+  },
+  {
+    "student_code": "3183268402",
+    "full_name": "Nguyễn Lê Đăng Khôi",
+    "class_name": "11B12",
+    "birth_date": "2009-06-21",
+    "gender": "male",
+    "contact_phone": "0912498889",
+    "guardian_phone": "0947379379",
+    "notes": "Status: Đang học; Mother phone: 0912498889"
+  },
+  {
+    "student_code": "3183268403",
+    "full_name": "Nguyễn Xuân Lâm",
+    "class_name": "11B12",
+    "birth_date": "2009-09-26",
+    "gender": "male",
+    "contact_phone": "0985766616",
+    "guardian_phone": "0963322568",
+    "notes": "Status: Đang học; Mother phone: 0985766616"
+  },
+  {
+    "student_code": "3183268404",
+    "full_name": "Ngô Ngọc Liêm",
+    "class_name": "11B12",
+    "birth_date": "2009-10-16",
+    "gender": "male",
+    "contact_phone": "0903646976",
+    "guardian_phone": "0903646976",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268405",
+    "full_name": "Nguyễn Mỹ Liên",
+    "class_name": "11B12",
+    "birth_date": "2009-06-06",
+    "gender": "other",
+    "contact_phone": "0982744528",
+    "guardian_phone": "0983941888",
+    "notes": "Status: Đang học; Mother phone: 0982744528"
+  },
+  {
+    "student_code": "3183268406",
+    "full_name": "Bùi Thị Ngọc Linh",
+    "class_name": "11B12",
+    "birth_date": "2009-11-29",
+    "gender": "other",
+    "contact_phone": "0333400797",
+    "guardian_phone": "0362966859",
+    "notes": "Status: Đang học; Mother phone: 0333400797"
+  },
+  {
+    "student_code": "3183268407",
+    "full_name": "Kiều Đức Minh",
+    "class_name": "11B12",
+    "birth_date": "2009-07-09",
+    "gender": "male",
+    "contact_phone": "0898258008",
+    "guardian_phone": "0898258008",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268408",
+    "full_name": "Phạm Hoàng Minh",
+    "class_name": "11B12",
+    "birth_date": "2009-12-06",
+    "gender": "male",
+    "contact_phone": "0989783367",
+    "guardian_phone": "0936223739",
+    "notes": "Status: Đang học; Mother phone: 0989783367"
+  },
+  {
+    "student_code": "3183268409",
+    "full_name": "Phạm Ngọc Minh",
+    "class_name": "11B12",
+    "birth_date": "2009-05-07",
+    "gender": "male",
+    "contact_phone": "0914612654",
+    "guardian_phone": "0913542159",
+    "notes": "Status: Đang học; Mother phone: 0914612654"
+  },
+  {
+    "student_code": "3183268411",
+    "full_name": "Nguyễn Trà My",
+    "class_name": "11B12",
+    "birth_date": "2009-05-20",
+    "gender": "other",
+    "contact_phone": "0902061332",
+    "guardian_phone": "0903401807",
+    "notes": "Status: Đang học; Mother phone: 0902061332"
+  },
+  {
+    "student_code": "3183268412",
+    "full_name": "Nguyễn Bảo Nam",
+    "class_name": "11B12",
+    "birth_date": "2009-07-13",
+    "gender": "male",
+    "contact_phone": "0904112842",
+    "guardian_phone": "0968297819",
+    "notes": "Status: Đang học; Mother phone: 0904112842"
+  },
+  {
+    "student_code": "3183268413",
+    "full_name": "Nguyễn Minh Nghĩa",
+    "class_name": "11B12",
+    "birth_date": "2009-03-24",
+    "gender": "male",
+    "contact_phone": "0906155396",
+    "guardian_phone": "0906155324",
+    "notes": "Status: Đang học; Mother phone: 0906155396"
+  },
+  {
+    "student_code": "3183268414",
+    "full_name": "Vũ Khánh Nguyên",
+    "class_name": "11B12",
+    "birth_date": "2009-08-17",
+    "gender": "male",
+    "contact_phone": "0984471303",
+    "guardian_phone": "0983178400",
+    "notes": "Status: Đang học; Mother phone: 0984471303"
+  },
+  {
+    "student_code": "3183268415",
+    "full_name": "Nguyễn Tú Phương",
+    "class_name": "11B12",
+    "birth_date": "2009-11-27",
+    "gender": "other",
+    "contact_phone": "0901592979",
+    "guardian_phone": "0912135273",
+    "notes": "Status: Đang học; Mother phone: 0901592979"
+  },
+  {
+    "student_code": "3183268416",
+    "full_name": "Trần Hà Phương",
+    "class_name": "11B12",
+    "birth_date": "2009-01-15",
+    "gender": "other",
+    "contact_phone": "0976296766",
+    "guardian_phone": "0989408968",
+    "notes": "Status: Đang học; Mother phone: 0976296766"
+  },
+  {
+    "student_code": "3183268417",
+    "full_name": "Trần Ngọc Hà Phương",
+    "class_name": "11B12",
+    "birth_date": "2009-02-14",
+    "gender": "other",
+    "contact_phone": "0934271281",
+    "guardian_phone": "0368381183",
+    "notes": "Status: Đang học; Mother phone: 0934271281"
+  },
+  {
+    "student_code": "3183268418",
+    "full_name": "Bùi Nguyễn Hương Quỳnh",
+    "class_name": "11B12",
+    "birth_date": "2009-02-14",
+    "gender": "other",
+    "contact_phone": "0332068818",
+    "guardian_phone": "0348398999",
+    "notes": "Status: Đang học; Mother phone: 0332068818"
+  },
+  {
+    "student_code": "3183268419",
+    "full_name": "Lê Trần Phương Quỳnh",
+    "class_name": "11B12",
+    "birth_date": "2009-04-25",
+    "gender": "other",
+    "contact_phone": "0975126196",
+    "guardian_phone": "0966576918",
+    "notes": "Status: Đang học; Mother phone: 0975126196"
+  },
+  {
+    "student_code": "3150190441",
+    "full_name": "Hoàng Tuấn Sang",
+    "class_name": "11B12",
+    "birth_date": "2009-01-30",
+    "gender": "male",
+    "contact_phone": "0936886969",
+    "guardian_phone": "0936867961",
+    "notes": "Status: Chuyển đến trong hè; Mother phone: 0936886969"
+  },
+  {
+    "student_code": "3183268420",
+    "full_name": "Lương Thái Sơn",
+    "class_name": "11B12",
+    "birth_date": "2009-11-21",
+    "gender": "male",
+    "contact_phone": "0349360061",
+    "guardian_phone": "0989845057",
+    "notes": "Status: Đang học; Mother phone: 0349360061"
+  },
+  {
+    "student_code": "3183268421",
+    "full_name": "Vũ Trần Sơn",
+    "class_name": "11B12",
+    "birth_date": "2009-12-14",
+    "gender": "male",
+    "contact_phone": "0904310381",
+    "guardian_phone": "0902029379",
+    "notes": "Status: Đang học; Mother phone: 0904310381"
+  },
+  {
+    "student_code": "3183268422",
+    "full_name": "Giang Minh Thành",
+    "class_name": "11B12",
+    "birth_date": "2009-05-28",
+    "gender": "male",
+    "contact_phone": "0982005884",
+    "guardian_phone": "0902281318",
+    "notes": "Status: Đang học; Mother phone: 0982005884"
+  },
+  {
+    "student_code": "3183268423",
+    "full_name": "Đồng Phương Thủy",
+    "class_name": "11B12",
+    "birth_date": "2009-11-13",
+    "gender": "other",
+    "contact_phone": "0904620799",
+    "guardian_phone": "0936516836",
+    "notes": "Status: Đang học; Mother phone: 0904620799"
+  },
+  {
+    "student_code": "3183268424",
+    "full_name": "Vũ Minh Trí",
+    "class_name": "11B12",
+    "birth_date": "2009-05-06",
+    "gender": "male",
+    "contact_phone": "0368808515",
+    "guardian_phone": "0913062138",
+    "notes": "Status: Đang học; Mother phone: 0368808515"
+  },
+  {
+    "student_code": "3183268425",
+    "full_name": "Đỗ Hoàng Anh Tuấn",
+    "class_name": "11B12",
+    "birth_date": "2009-12-09",
+    "gender": "male",
+    "contact_phone": "0901587581",
+    "guardian_phone": "0912713019",
+    "notes": "Status: Đang học; Mother phone: 0901587581"
+  },
+  {
+    "student_code": "3183268427",
+    "full_name": "Đỗ Quốc Vinh",
+    "class_name": "11B12",
+    "birth_date": "2009-10-29",
+    "gender": "male",
+    "contact_phone": "0384595134",
+    "guardian_phone": "0982646885",
+    "notes": "Status: Đang học; Mother phone: 0384595134"
+  },
+  {
+    "student_code": "3183268428",
+    "full_name": "Quách Anh Vũ",
+    "class_name": "11B12",
+    "birth_date": "2009-07-16",
+    "gender": "male",
+    "contact_phone": "0934379654",
+    "guardian_phone": "0912402654",
+    "notes": "Status: Đang học; Mother phone: 0934379654"
+  },
+  {
+    "student_code": "3183268429",
+    "full_name": "Phạm Thị Minh Vy",
+    "class_name": "11B12",
+    "birth_date": "2009-12-14",
+    "gender": "other",
+    "contact_phone": "0947292316",
+    "guardian_phone": "0976405169",
+    "notes": "Status: Đang học; Mother phone: 0947292316"
+  },
+  {
+    "student_code": "3183268430",
+    "full_name": "Nguyễn Hoàng Yến",
+    "class_name": "11B12",
+    "birth_date": "2009-08-09",
+    "gender": "other",
+    "contact_phone": "0936638698",
+    "guardian_phone": "0912644022",
+    "notes": "Status: Đang học; Mother phone: 0936638698"
+  },
+  {
+    "student_code": "3183267982",
+    "full_name": "Hà Bảo Anh",
+    "class_name": "11B3",
+    "birth_date": "2009-11-17",
+    "gender": "other",
+    "contact_phone": "0978352289",
+    "guardian_phone": "0913398736",
+    "notes": "Status: Đang học; Mother phone: 0978352289"
+  },
+  {
+    "student_code": "3183267983",
+    "full_name": "Lã Ngọc Châu Anh",
+    "class_name": "11B3",
+    "birth_date": "2009-03-10",
+    "gender": "other",
+    "contact_phone": "0983248098",
+    "guardian_phone": "0982189296",
+    "notes": "Status: Đang học; Mother phone: 0983248098"
+  },
+  {
+    "student_code": "3183267984",
+    "full_name": "Lý Ngọc Lâm Anh",
+    "class_name": "11B3",
+    "birth_date": "2009-02-11",
+    "gender": "other",
+    "contact_phone": "0904107471",
+    "guardian_phone": "0945246566",
+    "notes": "Status: Đang học; Mother phone: 0904107471"
+  },
+  {
+    "student_code": "3183267985",
+    "full_name": "Nguyễn Ngọc Minh Anh",
+    "class_name": "11B3",
+    "birth_date": "2009-02-13",
+    "gender": "other",
+    "contact_phone": "0904523796",
+    "guardian_phone": "0948886464",
+    "notes": "Status: Đang học; Mother phone: 0904523796"
+  },
+  {
+    "student_code": "3183267986",
+    "full_name": "Nguyễn Xuân Anh",
+    "class_name": "11B3",
+    "birth_date": "2009-01-24",
+    "gender": "other",
+    "contact_phone": "0945277086",
+    "guardian_phone": "0913375999",
+    "notes": "Status: Đang học; Mother phone: 0945277086"
+  },
+  {
+    "student_code": "3183267987",
+    "full_name": "Quách Phương Anh",
+    "class_name": "11B3",
+    "birth_date": "2009-07-24",
+    "gender": "other",
+    "contact_phone": "0903259886",
+    "guardian_phone": "0983259886",
+    "notes": "Status: Đang học; Mother phone: 0903259886"
+  },
+  {
+    "student_code": "3183267988",
+    "full_name": "Vũ Ngọc Anh",
+    "class_name": "11B3",
+    "birth_date": "2009-10-12",
+    "gender": "other",
+    "contact_phone": "0389567396",
+    "guardian_phone": "0936189228",
+    "notes": "Status: Đang học; Mother phone: 0389567396"
+  },
+  {
+    "student_code": "3183267989",
+    "full_name": "Phạm Minh Châu",
+    "class_name": "11B3",
+    "birth_date": "2009-12-14",
+    "gender": "other",
+    "contact_phone": "0376971727",
+    "guardian_phone": "0906114886",
+    "notes": "Status: Đang học; Mother phone: 0376971727"
+  },
+  {
+    "student_code": "3183267990",
+    "full_name": "Ngô Kim Chi",
+    "class_name": "11B3",
+    "birth_date": "2009-08-19",
+    "gender": "other",
+    "contact_phone": "0989565809",
+    "guardian_phone": "0909941599",
+    "notes": "Status: Đang học; Mother phone: 0989565809"
+  },
+  {
+    "student_code": "3183267991",
+    "full_name": "Nguyễn Ngọc Diệp",
+    "class_name": "11B3",
+    "birth_date": "2009-08-17",
+    "gender": "other",
+    "contact_phone": "0346393468",
+    "guardian_phone": "0915527179",
+    "notes": "Status: Đang học; Mother phone: 0946393468"
+  },
+  {
+    "student_code": "3183267992",
+    "full_name": "Phạm Hữu Dũng",
+    "class_name": "11B3",
+    "birth_date": "2009-02-14",
+    "gender": "male",
+    "contact_phone": "0932288859",
+    "guardian_phone": "0772399339",
+    "notes": "Status: Đang học; Mother phone: 0932288859"
+  },
+  {
+    "student_code": "3183267993",
+    "full_name": "Nguyễn Thùy Dương",
+    "class_name": "11B3",
+    "birth_date": "2009-02-27",
+    "gender": "other",
+    "contact_phone": "0988776786",
+    "guardian_phone": "0988969129",
+    "notes": "Status: Đang học; Mother phone: 0988776786"
+  },
+  {
+    "student_code": "3183267994",
+    "full_name": "Phạm Thùy Dương",
+    "class_name": "11B3",
+    "birth_date": "2009-07-22",
+    "gender": "other",
+    "contact_phone": "0936466717",
+    "guardian_phone": "0979764539",
+    "notes": "Status: Đang học; Mother phone: 0936466717"
+  },
+  {
+    "student_code": "3183267995",
+    "full_name": "Phạm Tiến Đạt",
+    "class_name": "11B3",
+    "birth_date": "2009-11-13",
+    "gender": "male",
+    "contact_phone": "0982316886",
+    "guardian_phone": "0988949999",
+    "notes": "Status: Đang học; Mother phone: 0982316886"
+  },
+  {
+    "student_code": "3183267996",
+    "full_name": "Cao Hương Giang",
+    "class_name": "11B3",
+    "birth_date": "2009-10-12",
+    "gender": "other",
+    "contact_phone": "0782155222",
+    "guardian_phone": "0707333888",
+    "notes": "Status: Đang học; Mother phone: 0782155222"
+  },
+  {
+    "student_code": "3183267997",
+    "full_name": "Nguyễn Bảo Hân",
+    "class_name": "11B3",
+    "birth_date": "2009-06-30",
+    "gender": "other",
+    "contact_phone": "0977585668",
+    "guardian_phone": "0912547488",
+    "notes": "Status: Đang học; Mother phone: 0977585668"
+  },
+  {
+    "student_code": "3183267998",
+    "full_name": "Hoàng Mạnh Hùng",
+    "class_name": "11B3",
+    "birth_date": "2009-12-10",
+    "gender": "male",
+    "contact_phone": "0346811946",
+    "guardian_phone": "0987641973",
+    "notes": "Status: Đang học; Mother phone: 0346811946"
+  },
+  {
+    "student_code": "3183267999",
+    "full_name": "Hoàng Mạnh Khang",
+    "class_name": "11B3",
+    "birth_date": "2009-11-20",
+    "gender": "male",
+    "contact_phone": "0902269279",
+    "guardian_phone": "0903259246",
+    "notes": "Status: Đang học; Mother phone: 0902269279"
+  },
+  {
+    "student_code": "3183268000",
+    "full_name": "Nguyễn Thụy Trúc Khanh",
+    "class_name": "11B3",
+    "birth_date": "2009-08-21",
+    "gender": "other",
+    "contact_phone": "0973609999",
+    "guardian_phone": "0838566689",
+    "notes": "Status: Đang học; Mother phone: 0973609999"
+  },
+  {
+    "student_code": "3183268001",
+    "full_name": "Bùi Nguyễn Hưng Khôi",
+    "class_name": "11B3",
+    "birth_date": "2009-01-24",
+    "gender": "male",
+    "contact_phone": "0936584946",
+    "guardian_phone": "0833023754",
+    "notes": "Status: Đang học; Mother phone: 0936584946"
+  },
+  {
+    "student_code": "3183268002",
+    "full_name": "Nguyễn Minh Lâm",
+    "class_name": "11B3",
+    "birth_date": "2009-11-22",
+    "gender": "male",
+    "contact_phone": "0936973932",
+    "guardian_phone": "0705571102",
+    "notes": "Status: Đang học; Mother phone: 0936973932"
+  },
+  {
+    "student_code": "3183268003",
+    "full_name": "Đào Thùy Linh",
+    "class_name": "11B3",
+    "birth_date": "2009-12-04",
+    "gender": "other",
+    "contact_phone": "0775350993",
+    "guardian_phone": "0912002618",
+    "notes": "Status: Đang học; Mother phone: 0775350993"
+  },
+  {
+    "student_code": "3183268004",
+    "full_name": "Hoàng Gia Linh",
+    "class_name": "11B3",
+    "birth_date": "2009-09-30",
+    "gender": "other",
+    "contact_phone": "0984523077",
+    "guardian_phone": "0846200684",
+    "notes": "Status: Đang học; Mother phone: 0984523077"
+  },
+  {
+    "student_code": "3183268005",
+    "full_name": "Hoàng Ngọc Khánh Linh",
+    "class_name": "11B3",
+    "birth_date": "2009-10-10",
+    "gender": "other",
+    "contact_phone": "0978352014",
+    "guardian_phone": "0989188527",
+    "notes": "Status: Đang học; Mother phone: 0978352014"
+  },
+  {
+    "student_code": "3183268006",
+    "full_name": "Nguyễn Thái Linh",
+    "class_name": "11B3",
+    "birth_date": "2009-06-18",
+    "gender": "other",
+    "contact_phone": "0904002798",
+    "guardian_phone": "0934567862",
+    "notes": "Status: Đang học; Mother phone: 0904002798"
+  },
+  {
+    "student_code": "3183268007",
+    "full_name": "Phạm Hà Linh",
+    "class_name": "11B3",
+    "birth_date": "2009-06-20",
+    "gender": "other",
+    "contact_phone": "0904854199",
+    "guardian_phone": "0904214045",
+    "notes": "Status: Đang học; Mother phone: 0904854199"
+  },
+  {
+    "student_code": "3183268008",
+    "full_name": "Cao Xuân Mai",
+    "class_name": "11B3",
+    "birth_date": "2009-01-21",
+    "gender": "other",
+    "contact_phone": "0915372088",
+    "guardian_phone": "0915372088",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268009",
+    "full_name": "Đồng Phương Mai",
+    "class_name": "11B3",
+    "birth_date": "2009-02-09",
+    "gender": "other",
+    "contact_phone": "0393715125",
+    "guardian_phone": "0962888069",
+    "notes": "Status: Đang học; Mother phone: 0393715125"
+  },
+  {
+    "student_code": "3183268010",
+    "full_name": "Lã Như Mai",
+    "class_name": "11B3",
+    "birth_date": "2009-09-14",
+    "gender": "other",
+    "contact_phone": "0919575958",
+    "guardian_phone": "0931537666",
+    "notes": "Status: Đang học; Mother phone: 0919575958"
+  },
+  {
+    "student_code": "3183268011",
+    "full_name": "Vũ Ngọc Mai",
+    "class_name": "11B3",
+    "birth_date": "2009-05-13",
+    "gender": "other",
+    "contact_phone": "0772210747",
+    "guardian_phone": "0772210747",
+    "notes": "Status: Đang học"
+  },
+  {
+    "student_code": "3183268012",
+    "full_name": "Hồng Quang Minh",
+    "class_name": "11B3",
+    "birth_date": "2009-09-04",
+    "gender": "male",
+    "contact_phone": "0904406379",
+    "guardian_phone": "0948069685",
+    "notes": "Status: Đang học; Mother phone: 0904406379"
+  },
+  {
+    "student_code": "3183268013",
+    "full_name": "Phạm Gia Minh",
+    "class_name": "11B3",
+    "birth_date": "2009-01-03",
+    "gender": "male",
+    "contact_phone": "0845023888",
+    "guardian_phone": "0974349155",
+    "notes": "Status: Đang học; Mother phone: 0845023888"
+  },
+  {
+    "student_code": "3183268014",
+    "full_name": "Bùi Đức Khánh Nam",
+    "class_name": "11B3",
+    "birth_date": "2009-12-29",
+    "gender": "male",
+    "contact_phone": "0934313013",
+    "guardian_phone": "0916662409",
+    "notes": "Status: Đang học; Mother phone: 0934313013"
+  },
+  {
+    "student_code": "3183268015",
+    "full_name": "Lê Hữu Nam",
+    "class_name": "11B3",
+    "birth_date": "2009-09-22",
+    "gender": "male",
+    "contact_phone": "0387838286",
+    "guardian_phone": "0398275764",
+    "notes": "Status: Đang học; Mother phone: 0387838286"
+  },
+  {
+    "student_code": "3183268016",
+    "full_name": "Trần Hoàng Nam",
+    "class_name": "11B3",
+    "birth_date": "2009-10-30",
+    "gender": "male",
+    "contact_phone": "0912717932",
+    "guardian_phone": "0978575168",
+    "notes": "Status: Đang học; Mother phone: 0912717932"
+  },
+  {
+    "student_code": "3183483724",
+    "full_name": "Lê Bảo Ngọc",
+    "class_name": "11B3",
+    "birth_date": "2009-12-18",
+    "gender": "other",
+    "contact_phone": "0337498627",
+    "guardian_phone": "0913244649",
+    "notes": "Status: Chuyển đến trong hè; Mother phone: 0773336266"
+  },
+  {
+    "student_code": "3183267972",
+    "full_name": "Nguyễn Minh Ngọc",
+    "class_name": "11B3",
+    "birth_date": "2009-05-23",
+    "gender": "other",
+    "contact_phone": "0329850509",
+    "guardian_phone": "0346004389",
+    "notes": "Status: Đang học; Mother phone: 0347599058"
+  },
+  {
+    "student_code": "3183268017",
+    "full_name": "Phạm Phương Bảo Ngọc",
+    "class_name": "11B3",
+    "birth_date": "2009-10-26",
+    "gender": "other",
+    "contact_phone": "0973953086",
+    "guardian_phone": "0963126488",
+    "notes": "Status: Đang học; Mother phone: 0973953086"
+  },
+  {
+    "student_code": "3183268018",
+    "full_name": "Đoàn Đại Phú",
+    "class_name": "11B3",
+    "birth_date": "2009-04-24",
+    "gender": "male",
+    "contact_phone": "0904435765",
+    "guardian_phone": "0913067048",
+    "notes": "Status: Đang học; Mother phone: 0904435765"
+  },
+  {
+    "student_code": "3183268019",
+    "full_name": "Ngô Thị Thái Phúc",
+    "class_name": "11B3",
+    "birth_date": "2009-03-06",
+    "gender": "other",
+    "contact_phone": "0912722673",
+    "guardian_phone": "0913500654",
+    "notes": "Status: Đang học; Mother phone: 0912722673"
+  },
+  {
+    "student_code": "3183268020",
+    "full_name": "Lưu Hiểu Phương",
+    "class_name": "11B3",
+    "birth_date": "2009-09-19",
+    "gender": "other",
+    "contact_phone": "0935753668",
+    "guardian_phone": "0936866866",
+    "notes": "Status: Đang học; Mother phone: 0935753668"
+  },
+  {
+    "student_code": "3183268021",
+    "full_name": "Ngô Hải Phương",
+    "class_name": "11B3",
+    "birth_date": "2009-09-10",
+    "gender": "other",
+    "contact_phone": "0356222599",
+    "guardian_phone": "0975364292",
+    "notes": "Status: Đang học; Mother phone: 0356222599"
+  },
+  {
+    "student_code": "3183268022",
+    "full_name": "Nguyễn Đức Thành",
+    "class_name": "11B3",
+    "birth_date": "2009-02-24",
+    "gender": "male",
+    "contact_phone": "0916454678",
+    "guardian_phone": "0937825786",
+    "notes": "Status: Đang học; Mother phone: 0916454678"
+  },
+  {
+    "student_code": "3183268023",
+    "full_name": "Nguyễn Phương Thảo",
+    "class_name": "11B3",
+    "birth_date": "2009-11-12",
+    "gender": "other",
+    "contact_phone": "0918696499",
+    "guardian_phone": "0915818939",
+    "notes": "Status: Đang học; Mother phone: 0918696499"
+  },
+  {
+    "student_code": "3183268024",
+    "full_name": "Nguyễn Hoàng Phương Thủy",
+    "class_name": "11B3",
+    "birth_date": "2009-02-11",
+    "gender": "other",
+    "contact_phone": "0919119871",
+    "guardian_phone": "0906189466",
+    "notes": "Status: Đang học; Mother phone: 0919119871"
+  },
+  {
+    "student_code": "3183268025",
+    "full_name": "Đoàn Ngô Song Thư",
+    "class_name": "11B3",
+    "birth_date": "2009-08-05",
+    "gender": "other",
+    "contact_phone": "0919938584",
+    "guardian_phone": "0939752688",
+    "notes": "Status: Đang học; Mother phone: 0919938584"
+  },
+  {
+    "student_code": "3183268026",
+    "full_name": "Hoàng Anh Thư",
+    "class_name": "11B3",
+    "birth_date": "2009-02-12",
+    "gender": "other",
+    "contact_phone": "0943455489",
+    "guardian_phone": "0925164682",
+    "notes": "Status: Đang học; Mother phone: 0943455489"
+  },
+  {
+    "student_code": "3183268028",
+    "full_name": "Lê Thị Minh Thư",
+    "class_name": "11B3",
+    "birth_date": "2009-09-30",
+    "gender": "other",
+    "contact_phone": "0982870236",
+    "guardian_phone": "0982557156",
+    "notes": "Status: Đang học; Mother phone: 0982870236"
+  },
+  {
+    "student_code": "3183268029",
+    "full_name": "Lương Minh Thư",
+    "class_name": "11B3",
+    "birth_date": "2009-12-09",
+    "gender": "other",
+    "contact_phone": "0985421739",
+    "guardian_phone": "0982098599",
+    "notes": "Status: Đang học; Mother phone: 0985421739"
+  },
+  {
+    "student_code": "3183268030",
+    "full_name": "Bùi Đức Toàn",
+    "class_name": "11B3",
+    "birth_date": "2009-01-18",
+    "gender": "male",
+    "contact_phone": "0902102434",
+    "guardian_phone": "0936833779",
+    "notes": "Status: Đang học; Mother phone: 0902102434"
+  },
+  {
+    "student_code": "3183268031",
+    "full_name": "Ngô Quốc Trung",
+    "class_name": "11B3",
+    "birth_date": "2009-06-11",
+    "gender": "male",
+    "contact_phone": "0902721307",
+    "guardian_phone": "0972886088",
+    "notes": "Status: Đang học; Mother phone: 0902721307"
+  },
+  {
+    "student_code": "3183268032",
+    "full_name": "Nguyễn Phương Vân",
+    "class_name": "11B3",
+    "birth_date": "2009-03-18",
+    "gender": "other",
+    "contact_phone": "0369521396",
+    "guardian_phone": "0936127186",
+    "notes": "Status: Đang học; Mother phone: 0369521396"
+  },
+  {
+    "student_code": "3183268033",
+    "full_name": "Trần Thảo Vi",
+    "class_name": "11B3",
+    "birth_date": "2009-04-01",
+    "gender": "other",
+    "contact_phone": "0902283781",
+    "guardian_phone": "0945582527",
+    "notes": "Status: Đang học; Mother phone: 0902283781"
+  },
+  {
+    "student_code": "3183268036",
+    "full_name": "Bùi Phương Vy",
+    "class_name": "11B3",
+    "birth_date": "2009-07-19",
+    "gender": "other",
+    "contact_phone": "0912732455",
+    "guardian_phone": "0904112201",
+    "notes": "Status: Đang học; Mother phone: 0912732455"
+  },
+  {
+    "student_code": "3183268037",
+    "full_name": "Lê Minh Vy",
+    "class_name": "11B3",
+    "birth_date": "2009-10-10",
+    "gender": "other",
+    "contact_phone": "0933252889",
+    "guardian_phone": "0912278289",
+    "notes": "Status: Đang học; Mother phone: 0933252889"
+  }
+]

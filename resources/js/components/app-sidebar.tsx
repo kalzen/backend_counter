@@ -12,7 +12,16 @@ import {
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, Home, LayoutGrid, Users } from 'lucide-react';
+import {
+    AlertTriangle,
+    BarChart3,
+    BookOpen,
+    Folder,
+    GraduationCap,
+    Home,
+    LayoutGrid,
+    Users,
+} from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -27,9 +36,19 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Phòng',
-        href: route('rooms.index'),
-        icon: Users,
+        title: 'Quản lý học sinh',
+        href: route('students.index'),
+        icon: GraduationCap,
+    },
+    {
+        title: 'Quản lý vi phạm',
+        href: route('violations.index'),
+        icon: AlertTriangle,
+    },
+    {
+        title: 'Thống kê',
+        href: route('statistics.index'),
+        icon: BarChart3,
     },
 ];
 

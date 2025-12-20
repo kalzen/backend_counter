@@ -11,14 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_persons', function (Blueprint $table) {
+        Schema::create('access_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
-            $table->foreignId('person_id')->constrained('persons')->onDelete('cascade');
-            $table->string('counter_track_id')->unique(); // ID từ people counter
+            $table->foreignId('student_id')->nullable()->constrained('students')->nullOnDelete();
+            $table->foreignId('student_card_id')->nullable()->constrained('student_cards')->nullOnDelete();
+            $table->timestamp('occurred_at');
+            $table->enum('result', ['valid', 'violation'])->default('valid');
+            $table->boolean('has_license_plate')->default(false);
+            $table->string('license_plate_number')->nullable();
+            $table->string('captured_image_path')->nullable();
+            $table->string('violation_reason')->nullable();
+            $table->unsignedTinyInteger('student_age')->nullable();
+            $table->json('metadata')->nullable();
             $table->timestamps();
-            
-            $table->unique(['room_id', 'person_id']);
+
+            $table->index('occurred_at');
+            $table->index(['student_id', 'result']);
         });
     }
 
@@ -27,10 +35,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop in correct order
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('room_persons');
+        Schema::dropIfExists('access_logs');
         Schema::enableForeignKeyConstraints();
     }
 };
-

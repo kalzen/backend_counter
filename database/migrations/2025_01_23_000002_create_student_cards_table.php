@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('persons', function (Blueprint $table) {
+        Schema::create('student_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image_path')->nullable();
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
+            $table->string('card_code')->unique();
+            $table->enum('card_type', ['RFID', 'QR'])->default('RFID');
+            $table->date('issued_at')->nullable();
+            $table->date('expires_at')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -25,8 +29,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('persons');
+        Schema::dropIfExists('student_cards');
         Schema::enableForeignKeyConstraints();
     }
 };
-
