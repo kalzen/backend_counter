@@ -117,35 +117,56 @@ class ViolationApiController extends Controller
                 
                 // Lưu vào storage/app/public/violations/
                 // storeAs('public/violations', ...) sẽ lưu vào storage/app/public/violations/
+                // và trả về path: "public/violations/filename.jpg"
                 $storedPath = $image->storeAs('public/violations', $fileName);
                 
+                // storeAs trả về path dạng "public/violations/filename.jpg"
+                // Để check bằng Storage::disk('public'), cần bỏ prefix "public/"
+                $relativePath = str_replace('public/', '', $storedPath); // "violations/filename.jpg"
+                
                 // Kiểm tra xem file có được lưu không
-                if ($storedPath && Storage::disk('public')->exists('violations/' . $fileName)) {
+                if ($storedPath && Storage::disk('public')->exists($relativePath)) {
                     // Dùng Storage::url() để tạo URL đúng (tự động xử lý storage link)
                     // Storage::url() sẽ trả về URL dạng /storage/violations/filename.jpg
-                    $imagePath = Storage::disk('public')->url('violations/' . $fileName);
+                    $imagePath = Storage::disk('public')->url($relativePath);
                     
                     // Đảm bảo path không có dấu / ở đầu (để tương thích với asset())
                     $imagePath = ltrim($imagePath, '/');
                     
                     \Log::info('Image saved successfully', [
                         'stored_path' => $storedPath,
+                        'relative_path' => $relativePath,
                         'image_path' => $imagePath,
                         'full_url' => asset($imagePath),
                         'file_name' => $fileName,
-                        'file_size' => Storage::disk('public')->size('violations/' . $fileName),
-                        'file_exists' => Storage::disk('public')->exists('violations/' . $fileName),
-                        'absolute_path' => Storage::disk('public')->path('violations/' . $fileName),
+                        'file_size' => Storage::disk('public')->size($relativePath),
+                        'file_exists' => Storage::disk('public')->exists($relativePath),
+                        'absolute_path' => Storage::disk('public')->path($relativePath),
                     ]);
                 } else {
+                    // Thử check bằng absolute path
+                    $absolutePath = storage_path('app/' . $storedPath);
+                    $existsByAbsolute = file_exists($absolutePath);
+                    
                     \Log::error('Failed to save image or file not found', [
                         'stored_path' => $storedPath,
+                        'relative_path' => $relativePath ?? 'N/A',
                         'file_name' => $fileName,
-                        'expected_path' => 'violations/' . $fileName,
-                        'exists_check' => $storedPath ? Storage::disk('public')->exists('violations/' . $fileName) : false,
+                        'exists_by_relative' => $storedPath ? Storage::disk('public')->exists($relativePath) : false,
+                        'exists_by_absolute' => $existsByAbsolute,
+                        'absolute_path' => $absolutePath,
                         'violations_dir_exists' => file_exists($violationsDir),
                         'violations_dir_writable' => is_writable($violationsDir),
                     ]);
+                    
+                    // Nếu file tồn tại bằng absolute path nhưng không check được bằng Storage, vẫn dùng
+                    if ($existsByAbsolute) {
+                        $imagePath = Storage::disk('public')->url($relativePath);
+                        $imagePath = ltrim($imagePath, '/');
+                        \Log::info('Image found by absolute path, using it anyway', [
+                            'image_path' => $imagePath,
+                        ]);
+                    }
                 }
             } catch (\Exception $e) {
                 \Log::error('Error saving image', [
