@@ -115,17 +115,14 @@ class ViolationApiController extends Controller
                     \Log::info('Created violations directory', ['path' => $violationsDir]);
                 }
                 
-                // Lưu vào storage/app/public/violations/
-                // storeAs('public/violations', ...) sẽ lưu vào storage/app/public/violations/
-                // và trả về path: "public/violations/filename.jpg"
-                $storedPath = $image->storeAs('public/violations', $fileName);
+                // Dùng Storage::disk('public')->putFileAs() để lưu file trực tiếp vào public disk
+                // Path tương đối từ public disk root: "violations/filename.jpg"
+                $relativePath = 'violations/' . $fileName;
                 
-                // storeAs trả về path dạng "public/violations/filename.jpg"
-                // Để check bằng Storage::disk('public'), cần bỏ prefix "public/"
-                $relativePath = str_replace('public/', '', $storedPath); // "violations/filename.jpg"
+                // Lưu file vào storage/app/public/violations/
+                $saved = Storage::disk('public')->putFileAs('violations', $image, $fileName);
                 
-                // Kiểm tra xem file có được lưu không
-                if ($storedPath && Storage::disk('public')->exists($relativePath)) {
+                if ($saved && Storage::disk('public')->exists($relativePath)) {
                     // Dùng Storage::url() để tạo URL đúng (tự động xử lý storage link)
                     // Storage::url() sẽ trả về URL dạng /storage/violations/filename.jpg
                     $imagePath = Storage::disk('public')->url($relativePath);
@@ -134,7 +131,7 @@ class ViolationApiController extends Controller
                     $imagePath = ltrim($imagePath, '/');
                     
                     \Log::info('Image saved successfully', [
-                        'stored_path' => $storedPath,
+                        'saved_path' => $saved,
                         'relative_path' => $relativePath,
                         'image_path' => $imagePath,
                         'full_url' => asset($imagePath),
@@ -144,27 +141,47 @@ class ViolationApiController extends Controller
                         'absolute_path' => Storage::disk('public')->path($relativePath),
                     ]);
                 } else {
-                    // Thử check bằng absolute path
-                    $absolutePath = storage_path('app/' . $storedPath);
-                    $existsByAbsolute = file_exists($absolutePath);
+                    // Thử cách khác: lưu trực tiếp bằng move()
+                    $absolutePath = $violationsDir . '/' . $fileName;
+                    try {
+                        $moved = $image->move($violationsDir, $fileName);
+                        if ($moved && file_exists($absolutePath)) {
+                            // File đã được lưu thành công
+                            $imagePath = Storage::disk('public')->url($relativePath);
+                            $imagePath = ltrim($imagePath, '/');
+                            
+                            \Log::info('Image saved successfully using move()', [
+                                'absolute_path' => $absolutePath,
+                                'image_path' => $imagePath,
+                                'file_size' => filesize($absolutePath),
+                            ]);
+                        } else {
+                            \Log::error('Failed to save image using move()', [
+                                'absolute_path' => $absolutePath,
+                                'violations_dir_exists' => file_exists($violationsDir),
+                                'violations_dir_writable' => is_writable($violationsDir),
+                            ]);
+                        }
+                    } catch (\Exception $moveException) {
+                        \Log::error('Error moving image file', [
+                            'error' => $moveException->getMessage(),
+                            'absolute_path' => $absolutePath,
+                            'violations_dir_exists' => file_exists($violationsDir),
+                            'violations_dir_writable' => is_writable($violationsDir),
+                        ]);
+                    }
                     
-                    \Log::error('Failed to save image or file not found', [
-                        'stored_path' => $storedPath,
-                        'relative_path' => $relativePath ?? 'N/A',
-                        'file_name' => $fileName,
-                        'exists_by_relative' => $storedPath ? Storage::disk('public')->exists($relativePath) : false,
-                        'exists_by_absolute' => $existsByAbsolute,
-                        'absolute_path' => $absolutePath,
-                        'violations_dir_exists' => file_exists($violationsDir),
-                        'violations_dir_writable' => is_writable($violationsDir),
-                    ]);
-                    
-                    // Nếu file tồn tại bằng absolute path nhưng không check được bằng Storage, vẫn dùng
-                    if ($existsByAbsolute) {
-                        $imagePath = Storage::disk('public')->url($relativePath);
-                        $imagePath = ltrim($imagePath, '/');
-                        \Log::info('Image found by absolute path, using it anyway', [
-                            'image_path' => $imagePath,
+                    // Log thông tin debug
+                    if (!$imagePath) {
+                        \Log::error('Failed to save image - all methods failed', [
+                            'saved_path' => $saved ?? 'N/A',
+                            'relative_path' => $relativePath,
+                            'file_name' => $fileName,
+                            'exists_check' => $saved ? Storage::disk('public')->exists($relativePath) : false,
+                            'absolute_path' => $absolutePath,
+                            'absolute_exists' => file_exists($absolutePath),
+                            'violations_dir_exists' => file_exists($violationsDir),
+                            'violations_dir_writable' => is_writable($violationsDir),
                         ]);
                     }
                 }
