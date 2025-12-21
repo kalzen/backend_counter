@@ -35,17 +35,22 @@ class ViolationApiController extends Controller
     public function store(Request $request): JsonResponse
     {
         // Validate request
+        // Lưu ý: Python có thể gửi boolean dưới dạng string "True"/"False" hoặc integer 1/0
         $validated = $request->validate([
             'card_code' => ['required', 'string'],
             'timestamp' => ['nullable', 'date'],
-            'has_plate' => ['required', 'boolean'],
-            'is_violation' => ['required', 'boolean'],
+            'has_plate' => ['required'], // Không validate boolean ngay, sẽ convert sau
+            'is_violation' => ['required'], // Không validate boolean ngay, sẽ convert sau
             'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:10240'], // Max 10MB
             'student_id' => ['nullable', 'integer', 'exists:students,id'],
             'student_name' => ['nullable', 'string'],
             'student_class' => ['nullable', 'string'],
             'student_age' => ['nullable', 'integer'],
         ]);
+
+        // Convert has_plate và is_violation sang boolean
+        $validated['has_plate'] = filter_var($validated['has_plate'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? false;
+        $validated['is_violation'] = filter_var($validated['is_violation'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? false;
 
         // Tìm học sinh theo card_code (thực tế là student_code) nếu chưa có student_id
         $student = null;
@@ -111,37 +116,79 @@ class ViolationApiController extends Controller
             }
         }
 
-        // Tạo AccessLog
-        $accessLog = AccessLog::create([
-            'student_id' => $student?->id,
-            'student_card_id' => $studentCard?->id,
-            'occurred_at' => $validated['timestamp'] ?? now(),
-            'result' => $result,
-            'has_license_plate' => $validated['has_plate'],
-            'license_plate_number' => null, // Có thể mở rộng để nhận diện OCR sau
-            'captured_image_path' => $imagePath,
-            'violation_reason' => $violationReason,
-            'student_age' => $validated['student_age'] ?? $student?->birth_date?->age,
-            'metadata' => [
-                'card_code' => $validated['card_code'],
-                'student_name' => $validated['student_name'] ?? $student?->full_name,
-                'student_class' => $validated['student_class'] ?? $student?->class_name,
-                'detected_at' => now()->toIso8601String(),
-            ],
-        ]);
+        // Xử lý timestamp
+        $occurredAt = null;
+        if (!empty($validated['timestamp'])) {
+            try {
+                $occurredAt = \Carbon\Carbon::parse($validated['timestamp']);
+            } catch (\Exception $e) {
+                // Nếu parse lỗi, dùng now()
+                $occurredAt = now();
+            }
+        } else {
+            $occurredAt = now();
+        }
 
-        return response()->json([
-            'status' => 'ok',
-            'message' => $result === 'violation' ? 'Đã ghi nhận vi phạm' : 'Đã ghi nhận lượt vào hợp lệ',
-            'access_log_id' => $accessLog->id,
-            'result' => $result,
-            'student' => $student ? [
-                'id' => $student->id,
-                'full_name' => $student->full_name,
-                'class_name' => $student->class_name,
-                'age' => $student->birth_date?->age,
-            ] : null,
-        ], 201);
+        // Chuẩn bị metadata
+        $metadata = [
+            'card_code' => $validated['card_code'],
+            'student_name' => $validated['student_name'] ?? $student?->full_name,
+            'student_class' => $validated['student_class'] ?? $student?->class_name,
+            'detected_at' => now()->toIso8601String(),
+        ];
+
+        // Tạo AccessLog với try-catch để bắt lỗi
+        try {
+            $accessLog = AccessLog::create([
+                'student_id' => $student?->id,
+                'student_card_id' => $studentCard?->id,
+                'occurred_at' => $occurredAt,
+                'result' => $result,
+                'has_license_plate' => $validated['has_plate'] ? true : false, // Đảm bảo boolean
+                'license_plate_number' => null, // Có thể mở rộng để nhận diện OCR sau
+                'captured_image_path' => $imagePath,
+                'violation_reason' => $violationReason,
+                'student_age' => $validated['student_age'] ?? $student?->birth_date?->age,
+                'metadata' => $metadata,
+            ]);
+
+            \Log::info('AccessLog created successfully', [
+                'id' => $accessLog->id,
+                'result' => $result,
+                'student_id' => $accessLog->student_id,
+                'card_code' => $validated['card_code'],
+            ]);
+
+            return response()->json([
+                'status' => 'ok',
+                'message' => $result === 'violation' ? 'Đã ghi nhận vi phạm' : 'Đã ghi nhận lượt vào hợp lệ',
+                'access_log_id' => $accessLog->id,
+                'result' => $result,
+                'student' => $student ? [
+                    'id' => $student->id,
+                    'full_name' => $student->full_name,
+                    'class_name' => $student->class_name,
+                    'age' => $student->birth_date?->age,
+                ] : null,
+            ], 201);
+        } catch (\Exception $e) {
+            \Log::error('Failed to create AccessLog', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'data' => [
+                    'card_code' => $validated['card_code'],
+                    'result' => $result,
+                    'has_plate' => $validated['has_plate'],
+                    'student_id' => $student?->id,
+                ],
+            ]);
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Không thể tạo AccessLog: ' . $e->getMessage(),
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
 
