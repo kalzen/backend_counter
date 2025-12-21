@@ -15,11 +15,18 @@ class StatisticController extends Controller
     {
         $now = now();
 
-        // MariaDB compatible JSON syntax
-        $violationsByGroup = AccessLog::selectRaw("JSON_UNQUOTE(JSON_EXTRACT(metadata, '$.scenario_group')) as scenario_group, count(*) as total")
-            ->groupBy('scenario_group')
-            ->pluck('total', 'scenario_group')
-            ->toArray();
+        // MariaDB compatible JSON syntax - chỉ query nếu có dữ liệu
+        try {
+            $violationsByGroup = AccessLog::selectRaw("JSON_UNQUOTE(JSON_EXTRACT(metadata, '$.scenario_group')) as scenario_group, count(*) as total")
+                ->whereRaw("JSON_EXTRACT(metadata, '$.scenario_group') IS NOT NULL")
+                ->groupBy('scenario_group')
+                ->pluck('total', 'scenario_group')
+                ->toArray();
+        } catch (\Exception $e) {
+            // Nếu query lỗi (có thể do không có cột metadata hoặc format không đúng), trả về mảng rỗng
+            \Log::warning('Failed to query violationsByGroup: ' . $e->getMessage());
+            $violationsByGroup = [];
+        }
 
         $dailyViolations = AccessLog::where('occurred_at', '>=', $now->copy()->subDays(7))
             ->orderBy('occurred_at')
