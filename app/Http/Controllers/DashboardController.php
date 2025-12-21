@@ -22,8 +22,10 @@ class DashboardController extends Controller
             'weekly_violations' => AccessLog::where('result', 'violation')
                 ->where('occurred_at', '>=', $now->copy()->subDays(7))
                 ->count(),
-            'average_processing_time' => AccessLog::whereNotNull('metadata->processing_time_seconds')
-                ->avg('metadata->processing_time_seconds'),
+            // MariaDB compatible JSON syntax
+            'average_processing_time' => AccessLog::whereRaw("JSON_EXTRACT(metadata, '$.processing_time_seconds') IS NOT NULL")
+                ->selectRaw("AVG(CAST(JSON_EXTRACT(metadata, '$.processing_time_seconds') AS DECIMAL(10,2))) as avg_time")
+                ->value('avg_time'),
             'last_sync_at' => AccessLog::latest('occurred_at')->value('occurred_at'),
         ];
 

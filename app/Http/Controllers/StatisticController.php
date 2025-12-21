@@ -15,7 +15,8 @@ class StatisticController extends Controller
     {
         $now = now();
 
-        $violationsByGroup = AccessLog::selectRaw("metadata->>'$.scenario_group' as scenario_group, count(*) as total")
+        // MariaDB compatible JSON syntax
+        $violationsByGroup = AccessLog::selectRaw("JSON_UNQUOTE(JSON_EXTRACT(metadata, '$.scenario_group')) as scenario_group, count(*) as total")
             ->groupBy('scenario_group')
             ->pluck('total', 'scenario_group')
             ->toArray();
@@ -38,13 +39,15 @@ class StatisticController extends Controller
         ];
 
         $totalChecks = array_sum($violationsByGroup);
-        $missedViolations = AccessLog::where("metadata->>'$.scenario_group'", 'B')
+        // MariaDB compatible JSON syntax
+        $missedViolations = AccessLog::whereRaw("JSON_UNQUOTE(JSON_EXTRACT(metadata, '$.scenario_group')) = ?", ['B'])
             ->where('result', 'valid')
             ->count();
         $truePositives = $stats['violations_total'];
         $trueNegatives = $totalChecks - $truePositives - $missedViolations;
 
-        $falsePositives = AccessLog::where("metadata->>'$.scenario_group'", '!=', 'B')
+        // MariaDB compatible JSON syntax
+        $falsePositives = AccessLog::whereRaw("JSON_UNQUOTE(JSON_EXTRACT(metadata, '$.scenario_group')) != ? OR JSON_UNQUOTE(JSON_EXTRACT(metadata, '$.scenario_group')) IS NULL", ['B'])
             ->where('result', 'violation')
             ->count();
 
@@ -52,8 +55,11 @@ class StatisticController extends Controller
             'accuracy' => $totalChecks > 0 ? round((($truePositives + $trueNegatives) / $totalChecks) * 100, 1) : null,
             'recall' => ($truePositives + $missedViolations) > 0 ? round(($truePositives / ($truePositives + $missedViolations)) * 100, 1) : null,
             'precision' => ($truePositives + $falsePositives) > 0 ? round(($truePositives / ($truePositives + $falsePositives)) * 100, 1) : null,
+            // MariaDB compatible JSON syntax
             'average_processing_time' => round(
-                AccessLog::whereNotNull('metadata->processing_time_seconds')->avg('metadata->processing_time_seconds'),
+                AccessLog::whereRaw("JSON_EXTRACT(metadata, '$.processing_time_seconds') IS NOT NULL")
+                    ->selectRaw("AVG(CAST(JSON_EXTRACT(metadata, '$.processing_time_seconds') AS DECIMAL(10,2))) as avg_time")
+                    ->value('avg_time') ?? 0,
                 2
             ),
         ];
