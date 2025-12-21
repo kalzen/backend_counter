@@ -34,23 +34,36 @@ class ViolationApiController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        // Validate request
-        // Lưu ý: Python có thể gửi boolean dưới dạng string "True"/"False" hoặc integer 1/0
-        $validated = $request->validate([
-            'card_code' => ['required', 'string'],
-            'timestamp' => ['nullable', 'date'],
-            'has_plate' => ['required'], // Không validate boolean ngay, sẽ convert sau
-            'is_violation' => ['required'], // Không validate boolean ngay, sẽ convert sau
-            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:10240'], // Max 10MB
-            'student_id' => ['nullable', 'integer', 'exists:students,id'],
-            'student_name' => ['nullable', 'string'],
-            'student_class' => ['nullable', 'string'],
-            'student_age' => ['nullable', 'integer'],
-        ]);
+        try {
+            // Validate request
+            // Lưu ý: Python có thể gửi boolean dưới dạng string "True"/"False" hoặc integer 1/0
+            try {
+                $validated = $request->validate([
+                    'card_code' => ['required', 'string'],
+                    'timestamp' => ['nullable', 'date'],
+                    'has_plate' => ['required'], // Không validate boolean ngay, sẽ convert sau
+                    'is_violation' => ['required'], // Không validate boolean ngay, sẽ convert sau
+                    'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:10240'], // Max 10MB
+                    'student_id' => ['nullable', 'integer', 'exists:students,id'],
+                    'student_name' => ['nullable', 'string'],
+                    'student_class' => ['nullable', 'string'],
+                    'student_age' => ['nullable', 'integer'],
+                ]);
+            } catch (\Illuminate\Validation\ValidationException $e) {
+                \Log::error('Validation failed in ViolationApiController', [
+                    'errors' => $e->errors(),
+                    'request_data' => $request->all(),
+                ]);
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors(),
+                ], 422);
+            }
 
-        // Convert has_plate và is_violation sang boolean
-        $validated['has_plate'] = filter_var($validated['has_plate'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? false;
-        $validated['is_violation'] = filter_var($validated['is_violation'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? false;
+            // Convert has_plate và is_violation sang boolean
+            $validated['has_plate'] = filter_var($validated['has_plate'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? false;
+            $validated['is_violation'] = filter_var($validated['is_violation'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? false;
 
         // Tìm học sinh theo card_code (thực tế là student_code) nếu chưa có student_id
         $student = null;
@@ -186,6 +199,19 @@ class ViolationApiController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Không thể tạo AccessLog: ' . $e->getMessage(),
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+        } catch (\Exception $e) {
+            \Log::error('Unexpected error in ViolationApiController', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request_data' => $request->all(),
+            ]);
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Lỗi server: ' . $e->getMessage(),
                 'error' => $e->getMessage(),
             ], 500);
         }
