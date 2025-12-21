@@ -47,7 +47,7 @@ class ViolationApiController extends Controller
                     'student_id' => ['nullable', 'integer', 'exists:students,id'],
                     'student_name' => ['nullable', 'string'],
                     'student_class' => ['nullable', 'string'],
-                    'student_age' => ['nullable', 'integer'],
+                    'student_age' => ['nullable', 'numeric'], // Cho phép float hoặc integer
                 ]);
             } catch (\Illuminate\Validation\ValidationException $e) {
                 \Log::error('Validation failed in ViolationApiController', [
@@ -114,21 +114,6 @@ class ViolationApiController extends Controller
         // Xác định result: 'violation' hoặc 'valid'
         $result = $validated['is_violation'] ? 'violation' : 'valid';
 
-        // Tạo violation reason nếu là vi phạm
-        $violationReason = null;
-        if ($validated['is_violation']) {
-            if ($student) {
-                $age = $validated['student_age'] ?? $student->birth_date?->age;
-                $violationReason = sprintf(
-                    'Học sinh %s (%d tuổi) điều khiển xe có biển số khi chưa đủ 16 tuổi',
-                    $student->full_name,
-                    $age ?? 'N/A'
-                );
-            } else {
-                $violationReason = 'Học sinh dưới 16 tuổi điều khiển xe có biển số';
-            }
-        }
-
         // Xử lý timestamp
         $occurredAt = null;
         if (!empty($validated['timestamp'])) {
@@ -140,6 +125,39 @@ class ViolationApiController extends Controller
             }
         } else {
             $occurredAt = now();
+        }
+
+        // Tính tuổi: ưu tiên từ request, nếu không có thì tự tính từ student
+        $studentAge = null;
+        if (isset($validated['student_age']) && $validated['student_age'] !== null && $validated['student_age'] !== '') {
+            // Nếu có gửi từ Python, convert sang integer (có thể là float như 15.54)
+            $studentAge = (int) round((float) $validated['student_age']);
+        } elseif ($student && $student->birth_date) {
+            // Tự tính tuổi từ birth_date (chính xác theo năm, tháng, ngày)
+            $today = \Carbon\Carbon::today();
+            $birthDate = \Carbon\Carbon::parse($student->birth_date);
+            $age = $birthDate->diffInYears($today);
+            // Kiểm tra xem đã đến sinh nhật trong năm nay chưa
+            $birthdayThisYear = \Carbon\Carbon::create($today->year, $birthDate->month, $birthDate->day);
+            if ($today->lt($birthdayThisYear)) {
+                $age--; // Chưa đến sinh nhật, trừ 1 tuổi
+            }
+            $studentAge = $age;
+        }
+
+        // Tạo violation reason nếu là vi phạm
+        $violationReason = null;
+        if ($validated['is_violation']) {
+            if ($student) {
+                $age = $studentAge ?? ($student->birth_date ? $student->birth_date->age : null);
+                $violationReason = sprintf(
+                    'Học sinh %s (%d tuổi) điều khiển xe có biển số khi chưa đủ 16 tuổi',
+                    $student->full_name,
+                    $age ?? 'N/A'
+                );
+            } else {
+                $violationReason = 'Học sinh dưới 16 tuổi điều khiển xe có biển số';
+            }
         }
 
         // Chuẩn bị metadata
@@ -161,7 +179,7 @@ class ViolationApiController extends Controller
                 'license_plate_number' => null, // Có thể mở rộng để nhận diện OCR sau
                 'captured_image_path' => $imagePath,
                 'violation_reason' => $violationReason,
-                'student_age' => $validated['student_age'] ?? $student?->birth_date?->age,
+                'student_age' => $studentAge, // Tự tính từ student nếu không có từ request
                 'metadata' => $metadata,
             ]);
 
