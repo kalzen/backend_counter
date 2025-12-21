@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\StudentCard;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -97,18 +98,62 @@ class ViolationApiController extends Controller
         // Xử lý ảnh nếu có
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $fileName = sprintf(
-                'violations/%s_%s_%s.%s',
-                date('Y-m-d'),
-                Str::slug($validated['card_code']),
-                Str::random(8),
-                $image->getClientOriginalExtension()
-            );
-            // Lưu vào storage/app/public/violations/
-            $storedPath = $image->storeAs('public/violations', basename($fileName));
-            // Lưu path tương đối từ public để dễ truy cập
-            $imagePath = 'storage/violations/' . basename($fileName);
+            try {
+                $image = $request->file('image');
+                $fileName = sprintf(
+                    '%s_%s_%s.%s',
+                    date('Y-m-d'),
+                    Str::slug($validated['card_code']),
+                    Str::random(8),
+                    $image->getClientOriginalExtension()
+                );
+                
+                // Đảm bảo thư mục violations tồn tại
+                $violationsDir = storage_path('app/public/violations');
+                if (!file_exists($violationsDir)) {
+                    File::makeDirectory($violationsDir, 0755, true);
+                    \Log::info('Created violations directory', ['path' => $violationsDir]);
+                }
+                
+                // Lưu vào storage/app/public/violations/
+                // storeAs('public/violations', ...) sẽ lưu vào storage/app/public/violations/
+                $storedPath = $image->storeAs('public/violations', $fileName);
+                
+                // Kiểm tra xem file có được lưu không
+                if ($storedPath && Storage::disk('public')->exists('violations/' . $fileName)) {
+                    // Dùng Storage::url() để tạo URL đúng (tự động xử lý storage link)
+                    // Storage::url() sẽ trả về URL dạng /storage/violations/filename.jpg
+                    $imagePath = Storage::disk('public')->url('violations/' . $fileName);
+                    
+                    // Đảm bảo path không có dấu / ở đầu (để tương thích với asset())
+                    $imagePath = ltrim($imagePath, '/');
+                    
+                    \Log::info('Image saved successfully', [
+                        'stored_path' => $storedPath,
+                        'image_path' => $imagePath,
+                        'full_url' => asset($imagePath),
+                        'file_name' => $fileName,
+                        'file_size' => Storage::disk('public')->size('violations/' . $fileName),
+                        'file_exists' => Storage::disk('public')->exists('violations/' . $fileName),
+                        'absolute_path' => Storage::disk('public')->path('violations/' . $fileName),
+                    ]);
+                } else {
+                    \Log::error('Failed to save image or file not found', [
+                        'stored_path' => $storedPath,
+                        'file_name' => $fileName,
+                        'expected_path' => 'violations/' . $fileName,
+                        'exists_check' => $storedPath ? Storage::disk('public')->exists('violations/' . $fileName) : false,
+                        'violations_dir_exists' => file_exists($violationsDir),
+                        'violations_dir_writable' => is_writable($violationsDir),
+                    ]);
+                }
+            } catch (\Exception $e) {
+                \Log::error('Error saving image', [
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+                // Không throw exception, chỉ log lỗi để không làm gián đoạn việc tạo AccessLog
+            }
         }
 
         // Xác định result: 'violation' hoặc 'valid'
