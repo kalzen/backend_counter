@@ -47,20 +47,32 @@ class ViolationApiController extends Controller
             'student_age' => ['nullable', 'integer'],
         ]);
 
-        // Tìm học sinh theo card_code nếu chưa có student_id
+        // Tìm học sinh theo card_code (thực tế là student_code) nếu chưa có student_id
         $student = null;
         $studentCard = null;
 
         if ($validated['student_id']) {
             $student = Student::find($validated['student_id']);
         } else {
-            $studentCard = StudentCard::where('card_code', $validated['card_code'])
-                ->where('is_active', true)
-                ->with('student')
-                ->first();
+            // Python gửi lên card_code nhưng đó là mã HS (student_code) trên server
+            // Tìm học sinh trực tiếp theo student_code trước
+            $student = Student::where('student_code', $validated['card_code'])->first();
 
-            if ($studentCard && $studentCard->student) {
-                $student = $studentCard->student;
+            // Nếu không tìm thấy, thử tìm qua StudentCard (để tương thích)
+            if (!$student) {
+                $studentCard = StudentCard::where('card_code', $validated['card_code'])
+                    ->where('is_active', true)
+                    ->with('student')
+                    ->first();
+
+                if ($studentCard && $studentCard->student) {
+                    $student = $studentCard->student;
+                }
+            } else {
+                // Nếu tìm thấy student, tìm studentCard tương ứng
+                $studentCard = StudentCard::where('student_id', $student->id)
+                    ->where('is_active', true)
+                    ->first();
             }
         }
 

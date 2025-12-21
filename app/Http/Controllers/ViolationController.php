@@ -19,6 +19,13 @@ class ViolationController extends Controller
             ->paginate(20)
             ->through(function (AccessLog $log) {
                 $student = $log->student;
+                $metadata = $log->metadata ?? [];
+
+                // Lấy thông tin từ metadata nếu student không có
+                $studentName = $student?->full_name ?? $metadata['student_name'] ?? null;
+                $studentCode = $student?->student_code ?? $metadata['card_code'] ?? null;
+                $className = $student?->class_name ?? $metadata['student_class'] ?? null;
+                $age = $log->student_age ?? ($student?->birth_date instanceof Carbon ? $student->birth_date->age : null);
 
                 return [
                     'id' => $log->id,
@@ -27,12 +34,12 @@ class ViolationController extends Controller
                     'has_license_plate' => $log->has_license_plate,
                     'license_plate_number' => $log->license_plate_number,
                     'violation_reason' => $log->violation_reason,
-                    'student' => $student ? [
-                        'id' => $student->id,
-                        'student_code' => $student->student_code,
-                        'full_name' => $student->full_name,
-                        'class_name' => $student->class_name,
-                        'age' => $student->birth_date instanceof Carbon ? $student->birth_date->age : null,
+                    'student' => ($student || $studentName || $studentCode) ? [
+                        'id' => $student?->id,
+                        'student_code' => $studentCode,
+                        'full_name' => $studentName,
+                        'class_name' => $className,
+                        'age' => $age,
                     ] : null,
                     'metadata' => $log->metadata,
                 ];

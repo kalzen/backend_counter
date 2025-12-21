@@ -73,14 +73,16 @@ export default function ViolationsIndex({ logs }: ViolationsPageProps) {
                 <div>
                     <h1 className="text-3xl font-bold">Quản lý vi phạm</h1>
                     <p className="text-gray-600 dark:text-gray-400 mt-1">
-                        Nhật ký lượt quét thẻ và kết quả phân loại theo kịch bản kiểm thử 100 học sinh.
+                        Nhật ký tất cả lượt quẹt thẻ, bao gồm cả vi phạm và không vi phạm.
                     </p>
                 </div>
 
                 <Card>
                     <CardHeader>
                         <CardTitle>Nhật ký quẹt thẻ</CardTitle>
-                        <CardDescription>Gồm 40 lượt hợp lệ nhóm A, 30 lượt nhóm C và 30 lượt nhóm B (28 phát hiện vi phạm).</CardDescription>
+                        <CardDescription>
+                            Danh sách tất cả lượt quẹt thẻ được ghi nhận, bao gồm cả vi phạm (học sinh dưới 16 tuổi có biển số) và không vi phạm.
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Table>
@@ -132,7 +134,7 @@ export default function ViolationsIndex({ logs }: ViolationsPageProps) {
                                 {data.length === 0 && (
                                     <TableRow>
                                         <TableCell colSpan={5} className="py-10 text-center text-sm text-muted-foreground">
-                                            Chưa có dữ liệu vi phạm. Hãy chạy seeder để khởi tạo dữ liệu kiểm thử.
+                                            Chưa có dữ liệu quẹt thẻ nào được ghi nhận.
                                         </TableCell>
                                     </TableRow>
                                 )}
