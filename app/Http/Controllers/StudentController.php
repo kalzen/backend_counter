@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AccessLog;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -52,5 +54,56 @@ class StudentController extends Controller
             'students' => $students,
             'summary' => $summary,
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'student_code' => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('students', 'student_code'),
+            ],
+            'full_name' => ['required', 'string', 'max:255'],
+            'class_name' => ['nullable', 'string', 'max:100'],
+            'birth_date' => ['required', 'date', 'before:today'],
+            'gender' => ['nullable', 'string', Rule::in(['Nam', 'Nữ', 'Khác'])],
+            'contact_phone' => ['nullable', 'string', 'max:20'],
+            'guardian_name' => ['nullable', 'string', 'max:255'],
+            'guardian_phone' => ['nullable', 'string', 'max:20'],
+            'notes' => ['nullable', 'string', 'max:1000'],
+            'scenario_group' => ['nullable', 'string', Rule::in(['A', 'B', 'C'])],
+            'enrolled_at' => ['nullable', 'date'],
+        ]);
+
+        // Tính toán is_underage dựa trên birth_date
+        $birthDate = Carbon::parse($validated['birth_date']);
+        $age = $birthDate->age;
+        $isUnderage = $age < 16;
+
+        // Tự động set enrolled_at nếu không có
+        if (!isset($validated['enrolled_at'])) {
+            $validated['enrolled_at'] = now();
+        }
+
+        $student = Student::create([
+            'student_code' => $validated['student_code'],
+            'full_name' => $validated['full_name'],
+            'class_name' => $validated['class_name'] ?? null,
+            'birth_date' => $validated['birth_date'],
+            'gender' => $validated['gender'] ?? null,
+            'contact_phone' => $validated['contact_phone'] ?? null,
+            'guardian_name' => $validated['guardian_name'] ?? null,
+            'guardian_phone' => $validated['guardian_phone'] ?? null,
+            'notes' => $validated['notes'] ?? null,
+            'scenario_group' => $validated['scenario_group'] ?? null,
+            'is_underage' => $isUnderage,
+            'enrolled_at' => $validated['enrolled_at'],
+        ]);
+
+        return redirect()
+            ->route('students.index')
+            ->with('success', "Đã thêm học sinh {$student->full_name} thành công!");
     }
 }

@@ -1,10 +1,31 @@
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { AlertTriangle, GraduationCap, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import { AlertTriangle, GraduationCap, Users, Plus } from 'lucide-react';
+import { useState } from 'react';
 
 interface PaginationLink {
     url: string | null;
@@ -73,16 +94,258 @@ export default function StudentsIndex({ students, summary }: StudentsPageProps) 
     const data = Array.isArray(students?.data) ? students.data : [];
     const links = Array.isArray(students?.links) ? students.links : [];
     const meta = students?.meta;
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const { data: formData, setData, post, processing, errors, reset } = useForm({
+        student_code: '',
+        full_name: '',
+        class_name: '',
+        birth_date: '',
+        gender: '',
+        contact_phone: '',
+        guardian_name: '',
+        guardian_phone: '',
+        notes: '',
+        scenario_group: '',
+        enrolled_at: '',
+    });
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post(route('students.store'), {
+            onSuccess: () => {
+                setIsDialogOpen(false);
+                reset();
+            },
+        });
+    };
 
     return (
         <AppLayout>
             <Head title="Quản lý học sinh" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-bold">Quản lý học sinh</h1>
-                    <p className="text-gray-600 dark:text-gray-400">
-                        Danh sách hồ sơ học sinh, trạng thái quẹt thẻ và phân nhóm theo kịch bản kiểm thử.
-                    </p>
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-2">
+                        <h1 className="text-3xl font-bold">Quản lý học sinh</h1>
+                        <p className="text-gray-600 dark:text-gray-400">
+                            Danh sách hồ sơ học sinh, trạng thái quẹt thẻ và phân nhóm theo kịch bản kiểm thử.
+                        </p>
+                    </div>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <DialogTrigger asChild>
+                            <Button>
+                                <Plus className="mr-2 h-4 w-4" />
+                                Thêm học sinh
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                            <DialogHeader>
+                                <DialogTitle>Thêm học sinh mới</DialogTitle>
+                                <DialogDescription>
+                                    Điền thông tin học sinh vào form bên dưới. Các trường có dấu * là bắt buộc.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="student_code">
+                                            Mã học sinh <span className="text-destructive">*</span>
+                                        </Label>
+                                        <Input
+                                            id="student_code"
+                                            value={formData.student_code}
+                                            onChange={(e) => setData('student_code', e.target.value)}
+                                            placeholder="VD: HS001"
+                                            required
+                                            aria-invalid={errors.student_code ? 'true' : 'false'}
+                                        />
+                                        {errors.student_code && (
+                                            <p className="text-sm text-destructive">{errors.student_code}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="full_name">
+                                            Họ và tên <span className="text-destructive">*</span>
+                                        </Label>
+                                        <Input
+                                            id="full_name"
+                                            value={formData.full_name}
+                                            onChange={(e) => setData('full_name', e.target.value)}
+                                            placeholder="VD: Nguyễn Văn A"
+                                            required
+                                            aria-invalid={errors.full_name ? 'true' : 'false'}
+                                        />
+                                        {errors.full_name && (
+                                            <p className="text-sm text-destructive">{errors.full_name}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="class_name">Lớp</Label>
+                                        <Input
+                                            id="class_name"
+                                            value={formData.class_name}
+                                            onChange={(e) => setData('class_name', e.target.value)}
+                                            placeholder="VD: 10A1"
+                                            aria-invalid={errors.class_name ? 'true' : 'false'}
+                                        />
+                                        {errors.class_name && (
+                                            <p className="text-sm text-destructive">{errors.class_name}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="birth_date">
+                                            Ngày sinh <span className="text-destructive">*</span>
+                                        </Label>
+                                        <Input
+                                            id="birth_date"
+                                            type="date"
+                                            value={formData.birth_date}
+                                            onChange={(e) => setData('birth_date', e.target.value)}
+                                            required
+                                            max={new Date().toISOString().split('T')[0]}
+                                            aria-invalid={errors.birth_date ? 'true' : 'false'}
+                                        />
+                                        {errors.birth_date && (
+                                            <p className="text-sm text-destructive">{errors.birth_date}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="gender">Giới tính</Label>
+                                        <Select
+                                            value={formData.gender}
+                                            onValueChange={(value) => setData('gender', value)}
+                                        >
+                                            <SelectTrigger id="gender">
+                                                <SelectValue placeholder="Chọn giới tính" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Nam">Nam</SelectItem>
+                                                <SelectItem value="Nữ">Nữ</SelectItem>
+                                                <SelectItem value="Khác">Khác</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.gender && (
+                                            <p className="text-sm text-destructive">{errors.gender}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="scenario_group">Nhóm kịch bản</Label>
+                                        <Select
+                                            value={formData.scenario_group}
+                                            onValueChange={(value) => setData('scenario_group', value)}
+                                        >
+                                            <SelectTrigger id="scenario_group">
+                                                <SelectValue placeholder="Chọn nhóm" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="A">Nhóm A (≥16 tuổi, có biển số)</SelectItem>
+                                                <SelectItem value="B">Nhóm B (&lt;16 tuổi, có biển số)</SelectItem>
+                                                <SelectItem value="C">Nhóm C (&lt;16 tuổi, không biển số)</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.scenario_group && (
+                                            <p className="text-sm text-destructive">{errors.scenario_group}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="contact_phone">Số điện thoại</Label>
+                                        <Input
+                                            id="contact_phone"
+                                            value={formData.contact_phone}
+                                            onChange={(e) => setData('contact_phone', e.target.value)}
+                                            placeholder="VD: 0901234567"
+                                            aria-invalid={errors.contact_phone ? 'true' : 'false'}
+                                        />
+                                        {errors.contact_phone && (
+                                            <p className="text-sm text-destructive">{errors.contact_phone}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="guardian_name">Tên phụ huynh</Label>
+                                        <Input
+                                            id="guardian_name"
+                                            value={formData.guardian_name}
+                                            onChange={(e) => setData('guardian_name', e.target.value)}
+                                            placeholder="VD: Nguyễn Văn B"
+                                            aria-invalid={errors.guardian_name ? 'true' : 'false'}
+                                        />
+                                        {errors.guardian_name && (
+                                            <p className="text-sm text-destructive">{errors.guardian_name}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="guardian_phone">Số điện thoại phụ huynh</Label>
+                                    <Input
+                                        id="guardian_phone"
+                                        value={formData.guardian_phone}
+                                        onChange={(e) => setData('guardian_phone', e.target.value)}
+                                        placeholder="VD: 0901234567"
+                                        aria-invalid={errors.guardian_phone ? 'true' : 'false'}
+                                    />
+                                    {errors.guardian_phone && (
+                                        <p className="text-sm text-destructive">{errors.guardian_phone}</p>
+                                    )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="enrolled_at">Ngày nhập học</Label>
+                                    <Input
+                                        id="enrolled_at"
+                                        type="date"
+                                        value={formData.enrolled_at}
+                                        onChange={(e) => setData('enrolled_at', e.target.value)}
+                                        aria-invalid={errors.enrolled_at ? 'true' : 'false'}
+                                    />
+                                    {errors.enrolled_at && (
+                                        <p className="text-sm text-destructive">{errors.enrolled_at}</p>
+                                    )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="notes">Ghi chú</Label>
+                                    <Textarea
+                                        id="notes"
+                                        value={formData.notes}
+                                        onChange={(e) => setData('notes', e.target.value)}
+                                        placeholder="Ghi chú thêm về học sinh..."
+                                        rows={3}
+                                        aria-invalid={errors.notes ? 'true' : 'false'}
+                                    />
+                                    {errors.notes && (
+                                        <p className="text-sm text-destructive">{errors.notes}</p>
+                                    )}
+                                </div>
+
+                                <DialogFooter>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        onClick={() => {
+                                            setIsDialogOpen(false);
+                                            reset();
+                                        }}
+                                        disabled={processing}
+                                    >
+                                        Hủy
+                                    </Button>
+                                    <Button type="submit" disabled={processing}>
+                                        {processing ? 'Đang thêm...' : 'Thêm học sinh'}
+                                    </Button>
+                                </DialogFooter>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-4">

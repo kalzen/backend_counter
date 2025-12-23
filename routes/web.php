@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::get('students', [StudentController::class, 'index'])->name('students.index');
+    Route::post('students', [StudentController::class, 'store'])->name('students.store');
     Route::get('violations', [ViolationController::class, 'index'])->name('violations.index');
     Route::get('violations/export/pdf', [ViolationController::class, 'exportPdf'])->name('violations.export');
     Route::get('statistics', [StatisticController::class, 'index'])->name('statistics.index');
