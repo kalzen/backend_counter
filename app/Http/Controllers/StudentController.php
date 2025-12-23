@@ -24,13 +24,21 @@ class StudentController extends Controller
             ->through(function (Student $student) {
                 $latestLog = $student->accessLogs->first();
 
+                // Map gender từ database (male/female/other) sang tiếng Việt để hiển thị
+                $genderMap = [
+                    'male' => 'Nam',
+                    'female' => 'Nữ',
+                    'other' => 'Khác',
+                ];
+                $gender = $student->gender ? ($genderMap[$student->gender] ?? $student->gender) : null;
+
                 return [
                     'id' => $student->id,
                     'student_code' => $student->student_code,
                     'full_name' => $student->full_name,
                     'class_name' => $student->class_name,
                     'age' => $student->birth_date?->age,
-                    'gender' => $student->gender,
+                    'gender' => $gender,
                     'contact_phone' => $student->contact_phone,
                     'guardian_phone' => $student->guardian_phone,
                     'notes' => $student->notes,
@@ -68,7 +76,7 @@ class StudentController extends Controller
             'full_name' => ['required', 'string', 'max:255'],
             'class_name' => ['nullable', 'string', 'max:100'],
             'birth_date' => ['required', 'date', 'before:today'],
-            'gender' => ['nullable', 'string', Rule::in(['Nam', 'Nữ', 'Khác'])],
+            'gender' => ['nullable', 'string', Rule::in(['Nam', 'Nữ', 'Khác', 'male', 'female', 'other'])],
             'contact_phone' => ['nullable', 'string', 'max:20'],
             'guardian_name' => ['nullable', 'string', 'max:255'],
             'guardian_phone' => ['nullable', 'string', 'max:20'],
@@ -82,6 +90,17 @@ class StudentController extends Controller
         $age = $birthDate->age;
         $isUnderage = $age < 16;
 
+        // Map gender từ tiếng Việt sang tiếng Anh (database format)
+        $genderMap = [
+            'Nam' => 'male',
+            'Nữ' => 'female',
+            'Khác' => 'other',
+        ];
+        $gender = $validated['gender'] ?? null;
+        if ($gender && isset($genderMap[$gender])) {
+            $gender = $genderMap[$gender];
+        }
+
         // Tự động set enrolled_at nếu không có
         if (!isset($validated['enrolled_at'])) {
             $validated['enrolled_at'] = now();
@@ -92,7 +111,7 @@ class StudentController extends Controller
             'full_name' => $validated['full_name'],
             'class_name' => $validated['class_name'] ?? null,
             'birth_date' => $validated['birth_date'],
-            'gender' => $validated['gender'] ?? null,
+            'gender' => $gender,
             'contact_phone' => $validated['contact_phone'] ?? null,
             'guardian_name' => $validated['guardian_name'] ?? null,
             'guardian_phone' => $validated['guardian_phone'] ?? null,
