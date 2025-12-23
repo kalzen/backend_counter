@@ -256,7 +256,7 @@ export default function Dashboard({ stats, recentViolations = [], exportDefaults
 
                                             {violation.violation_reason && (
                                                 <p className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
-                                                    {violation.violation_reason}
+                                                    Chưa đủ tuổi điều khiển phương tiện tại Việt Nam
                                                 </p>
                                             )}
 
