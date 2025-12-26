@@ -24,7 +24,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { AlertTriangle, GraduationCap, Users, Plus } from 'lucide-react';
+import { AlertTriangle, GraduationCap, Users, Plus, Pencil } from 'lucide-react';
 import { useState } from 'react';
 
 interface PaginationLink {
@@ -49,9 +49,12 @@ interface StudentRow {
     age: number | null;
     gender: string | null;
     contact_phone: string | null;
+    guardian_name: string | null;
     guardian_phone: string | null;
     notes: string | null;
     scenario_group: string | null;
+    birth_date: string | null;
+    enrolled_at: string | null;
     is_underage: boolean;
     violations_count: number;
     valid_count: number;
@@ -90,13 +93,52 @@ const scenarioDescriptions: Record<string, string> = {
     C: 'Nhóm C • <16 tuổi • Không biển số • Hợp lệ',
 };
 
+// Tính toán min/max date cho birth_date (12-30 tuổi)
+const getBirthDateConstraints = () => {
+    const today = new Date();
+    const maxDate = new Date(today);
+    maxDate.setFullYear(today.getFullYear() - 12); // Tối thiểu 12 tuổi
+    
+    const minDate = new Date(today);
+    minDate.setFullYear(today.getFullYear() - 30); // Tối đa 30 tuổi
+    
+    return {
+        min: minDate.toISOString().split('T')[0],
+        max: maxDate.toISOString().split('T')[0],
+    };
+};
+
 export default function StudentsIndex({ students, summary }: StudentsPageProps) {
     const data = Array.isArray(students?.data) ? students.data : [];
     const links = Array.isArray(students?.links) ? students.links : [];
     const meta = students?.meta;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+    const [editingStudent, setEditingStudent] = useState<StudentRow | null>(null);
+    const birthDateConstraints = getBirthDateConstraints();
 
     const { data: formData, setData, post, processing, errors, reset } = useForm({
+        student_code: '',
+        full_name: '',
+        class_name: '',
+        birth_date: '',
+        gender: '',
+        contact_phone: '',
+        guardian_name: '',
+        guardian_phone: '',
+        notes: '',
+        scenario_group: '',
+        enrolled_at: '',
+    });
+
+    const { 
+        data: editFormData, 
+        setData: setEditData, 
+        put: putEdit, 
+        processing: editProcessing, 
+        errors: editErrors, 
+        reset: resetEdit 
+    } = useForm({
         student_code: '',
         full_name: '',
         class_name: '',
@@ -118,6 +160,53 @@ export default function StudentsIndex({ students, summary }: StudentsPageProps) 
                 reset();
             },
         });
+    };
+
+    const handleEditClick = (student: StudentRow) => {
+        setEditingStudent(student);
+        // Format birth_date và enrolled_at từ string sang YYYY-MM-DD
+        const formatDate = (dateStr: string | null) => {
+            if (!dateStr) return '';
+            try {
+                return new Date(dateStr).toISOString().split('T')[0];
+            } catch {
+                return '';
+            }
+        };
+        
+        setEditData({
+            student_code: student.student_code,
+            full_name: student.full_name,
+            class_name: student.class_name || '',
+            birth_date: formatDate(student.birth_date),
+            gender: student.gender || '',
+            contact_phone: student.contact_phone || '',
+            guardian_name: student.guardian_name || '',
+            guardian_phone: student.guardian_phone || '',
+            notes: student.notes || '',
+            scenario_group: student.scenario_group || '',
+            enrolled_at: formatDate(student.enrolled_at),
+        });
+        setIsEditDialogOpen(true);
+    };
+
+    const handleEditSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingStudent) return;
+        
+        putEdit(route('students.update', { student: editingStudent.id }), {
+            onSuccess: () => {
+                setIsEditDialogOpen(false);
+                setEditingStudent(null);
+                resetEdit();
+            },
+        });
+    };
+
+    const handleEditCancel = () => {
+        setIsEditDialogOpen(false);
+        setEditingStudent(null);
+        resetEdit();
     };
 
     return (
@@ -205,9 +294,13 @@ export default function StudentsIndex({ students, summary }: StudentsPageProps) 
                                             value={formData.birth_date}
                                             onChange={(e) => setData('birth_date', e.target.value)}
                                             required
-                                            max={new Date().toISOString().split('T')[0]}
+                                            min={birthDateConstraints.min}
+                                            max={birthDateConstraints.max}
                                             aria-invalid={errors.birth_date ? 'true' : 'false'}
                                         />
+                                        <p className="text-xs text-muted-foreground">
+                                            Độ tuổi từ 12 đến 30 tuổi
+                                        </p>
                                         {errors.birth_date && (
                                             <p className="text-sm text-destructive">{errors.birth_date}</p>
                                         )}
@@ -346,6 +439,218 @@ export default function StudentsIndex({ students, summary }: StudentsPageProps) 
                             </form>
                         </DialogContent>
                     </Dialog>
+
+                    {/* Dialog Sửa học sinh */}
+                    <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                            <DialogHeader>
+                                <DialogTitle>Sửa thông tin học sinh</DialogTitle>
+                                <DialogDescription>
+                                    Cập nhật thông tin học sinh. Các trường có dấu * là bắt buộc.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <form onSubmit={handleEditSubmit} className="space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_student_code">
+                                            Mã học sinh <span className="text-destructive">*</span>
+                                        </Label>
+                                        <Input
+                                            id="edit_student_code"
+                                            value={editFormData.student_code}
+                                            onChange={(e) => setEditData('student_code', e.target.value)}
+                                            placeholder="VD: HS001"
+                                            required
+                                            aria-invalid={editErrors.student_code ? 'true' : 'false'}
+                                        />
+                                        {editErrors.student_code && (
+                                            <p className="text-sm text-destructive">{editErrors.student_code}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_full_name">
+                                            Họ và tên <span className="text-destructive">*</span>
+                                        </Label>
+                                        <Input
+                                            id="edit_full_name"
+                                            value={editFormData.full_name}
+                                            onChange={(e) => setEditData('full_name', e.target.value)}
+                                            placeholder="VD: Nguyễn Văn A"
+                                            required
+                                            aria-invalid={editErrors.full_name ? 'true' : 'false'}
+                                        />
+                                        {editErrors.full_name && (
+                                            <p className="text-sm text-destructive">{editErrors.full_name}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_class_name">Lớp</Label>
+                                        <Input
+                                            id="edit_class_name"
+                                            value={editFormData.class_name}
+                                            onChange={(e) => setEditData('class_name', e.target.value)}
+                                            placeholder="VD: 10A1"
+                                            aria-invalid={editErrors.class_name ? 'true' : 'false'}
+                                        />
+                                        {editErrors.class_name && (
+                                            <p className="text-sm text-destructive">{editErrors.class_name}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_birth_date">
+                                            Ngày sinh <span className="text-destructive">*</span>
+                                        </Label>
+                                        <Input
+                                            id="edit_birth_date"
+                                            type="date"
+                                            value={editFormData.birth_date}
+                                            onChange={(e) => setEditData('birth_date', e.target.value)}
+                                            required
+                                            min={birthDateConstraints.min}
+                                            max={birthDateConstraints.max}
+                                            aria-invalid={editErrors.birth_date ? 'true' : 'false'}
+                                        />
+                                        <p className="text-xs text-muted-foreground">
+                                            Độ tuổi từ 12 đến 30 tuổi
+                                        </p>
+                                        {editErrors.birth_date && (
+                                            <p className="text-sm text-destructive">{editErrors.birth_date}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_gender">Giới tính</Label>
+                                        <Select
+                                            value={editFormData.gender}
+                                            onValueChange={(value) => setEditData('gender', value)}
+                                        >
+                                            <SelectTrigger id="edit_gender">
+                                                <SelectValue placeholder="Chọn giới tính" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Nam">Nam</SelectItem>
+                                                <SelectItem value="Nữ">Nữ</SelectItem>
+                                                <SelectItem value="Khác">Khác</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        {editErrors.gender && (
+                                            <p className="text-sm text-destructive">{editErrors.gender}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_scenario_group">Nhóm kịch bản</Label>
+                                        <Select
+                                            value={editFormData.scenario_group}
+                                            onValueChange={(value) => setEditData('scenario_group', value)}
+                                        >
+                                            <SelectTrigger id="edit_scenario_group">
+                                                <SelectValue placeholder="Chọn nhóm" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="A">Nhóm A (≥16 tuổi, có biển số)</SelectItem>
+                                                <SelectItem value="B">Nhóm B (&lt;16 tuổi, có biển số)</SelectItem>
+                                                <SelectItem value="C">Nhóm C (&lt;16 tuổi, không biển số)</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        {editErrors.scenario_group && (
+                                            <p className="text-sm text-destructive">{editErrors.scenario_group}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_contact_phone">Số điện thoại</Label>
+                                        <Input
+                                            id="edit_contact_phone"
+                                            value={editFormData.contact_phone}
+                                            onChange={(e) => setEditData('contact_phone', e.target.value)}
+                                            placeholder="VD: 0901234567"
+                                            aria-invalid={editErrors.contact_phone ? 'true' : 'false'}
+                                        />
+                                        {editErrors.contact_phone && (
+                                            <p className="text-sm text-destructive">{editErrors.contact_phone}</p>
+                                        )}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="edit_guardian_name">Tên phụ huynh</Label>
+                                        <Input
+                                            id="edit_guardian_name"
+                                            value={editFormData.guardian_name}
+                                            onChange={(e) => setEditData('guardian_name', e.target.value)}
+                                            placeholder="VD: Nguyễn Văn B"
+                                            aria-invalid={editErrors.guardian_name ? 'true' : 'false'}
+                                        />
+                                        {editErrors.guardian_name && (
+                                            <p className="text-sm text-destructive">{editErrors.guardian_name}</p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="edit_guardian_phone">Số điện thoại phụ huynh</Label>
+                                    <Input
+                                        id="edit_guardian_phone"
+                                        value={editFormData.guardian_phone}
+                                        onChange={(e) => setEditData('guardian_phone', e.target.value)}
+                                        placeholder="VD: 0901234567"
+                                        aria-invalid={editErrors.guardian_phone ? 'true' : 'false'}
+                                    />
+                                    {editErrors.guardian_phone && (
+                                        <p className="text-sm text-destructive">{editErrors.guardian_phone}</p>
+                                    )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="edit_enrolled_at">Ngày nhập học</Label>
+                                    <Input
+                                        id="edit_enrolled_at"
+                                        type="date"
+                                        value={editFormData.enrolled_at}
+                                        onChange={(e) => setEditData('enrolled_at', e.target.value)}
+                                        aria-invalid={editErrors.enrolled_at ? 'true' : 'false'}
+                                    />
+                                    {editErrors.enrolled_at && (
+                                        <p className="text-sm text-destructive">{editErrors.enrolled_at}</p>
+                                    )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="edit_notes">Ghi chú</Label>
+                                    <Textarea
+                                        id="edit_notes"
+                                        value={editFormData.notes}
+                                        onChange={(e) => setEditData('notes', e.target.value)}
+                                        placeholder="Ghi chú thêm về học sinh..."
+                                        rows={3}
+                                        aria-invalid={editErrors.notes ? 'true' : 'false'}
+                                    />
+                                    {editErrors.notes && (
+                                        <p className="text-sm text-destructive">{editErrors.notes}</p>
+                                    )}
+                                </div>
+
+                                <DialogFooter>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        onClick={handleEditCancel}
+                                        disabled={editProcessing}
+                                    >
+                                        Hủy
+                                    </Button>
+                                    <Button type="submit" disabled={editProcessing}>
+                                        {editProcessing ? 'Đang cập nhật...' : 'Cập nhật'}
+                                    </Button>
+                                </DialogFooter>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-4">
@@ -406,6 +711,7 @@ export default function StudentsIndex({ students, summary }: StudentsPageProps) 
                                     <TableHead>Nhóm kịch bản</TableHead>
                                     <TableHead>Thống kê</TableHead>
                                     <TableHead>Lần quẹt gần nhất</TableHead>
+                                    <TableHead>Thao tác</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -467,12 +773,23 @@ export default function StudentsIndex({ students, summary }: StudentsPageProps) 
                                                     </div>
                                                 </div>
                                             </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                    onClick={() => handleEditClick(student)}
+                                                    className="gap-2"
+                                                >
+                                                    <Pencil className="h-4 w-4" />
+                                                    Sửa
+                                                </Button>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}
                                 {data.length === 0 && (
                                     <TableRow>
-                                        <TableCell colSpan={6} className="py-10 text-center text-sm text-muted-foreground">
+                                        <TableCell colSpan={7} className="py-10 text-center text-sm text-muted-foreground">
                                             Chưa có dữ liệu học sinh. Hãy chạy seeder để khởi tạo dữ liệu kiểm thử.
                                         </TableCell>
                                     </TableRow>
