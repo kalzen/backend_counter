@@ -63,9 +63,12 @@ return [
     | will be used by the PHP date and date-time functions. The timezone
     | is set to "UTC" by default as it is suitable for most use cases.
     |
+    | Đã đổi sang Asia/Ho_Chi_Minh (UTC+7) để ghi nhận đúng giờ Việt Nam
+    | khi nhận dữ liệu từ Python backend.
+    |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
