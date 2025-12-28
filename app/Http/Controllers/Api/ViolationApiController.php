@@ -198,16 +198,35 @@ class ViolationApiController extends Controller
         $result = $validated['is_violation'] ? 'violation' : 'valid';
 
         // Xử lý timestamp
+        // Python gửi timestamp dạng ISO 8601 (có thể có timezone UTC hoặc không)
+        // Laravel sẽ parse và tự động chuyển sang timezone của app (Asia/Ho_Chi_Minh)
         $occurredAt = null;
         if (!empty($validated['timestamp'])) {
             try {
-                $occurredAt = \Carbon\Carbon::parse($validated['timestamp']);
+                // Carbon::parse() sẽ tự động:
+                // - Parse timestamp (có thể có timezone hoặc không)
+                // - Chuyển đổi sang timezone của app (đã set trong config/app.php: Asia/Ho_Chi_Minh)
+                // - Lưu vào DB với timezone đúng
+                $occurredAt = \Carbon\Carbon::parse($validated['timestamp'])->setTimezone(config('app.timezone'));
+                \Log::info('Timestamp parsed successfully', [
+                    'input' => $validated['timestamp'],
+                    'parsed' => $occurredAt->toIso8601String(),
+                    'timezone' => $occurredAt->timezone->getName(),
+                ]);
             } catch (\Exception $e) {
-                // Nếu parse lỗi, dùng now()
+                // Nếu parse lỗi, dùng now() (đã là giờ VN)
+                \Log::warning('Failed to parse timestamp, using now()', [
+                    'timestamp' => $validated['timestamp'],
+                    'error' => $e->getMessage(),
+                ]);
                 $occurredAt = now();
             }
         } else {
+            // Không có timestamp từ Python, dùng now() (giờ VN)
             $occurredAt = now();
+            \Log::info('No timestamp provided, using now()', [
+                'occurred_at' => $occurredAt->toIso8601String(),
+            ]);
         }
 
         // Tính tuổi: ưu tiên từ request, nếu không có thì tự tính từ student
